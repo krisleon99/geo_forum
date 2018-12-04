@@ -4,8 +4,14 @@
 <meta charset="utf-8">
 <title>{% block title %}{{ SITE_NAME }}{% endblock %}</title>
 {% block head %}
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Foro - CentroGeo CONACYT">
+<meta property="og:url"                content="http://idegeo.centrogeo.org.mx/apps/mugs/compare/" />
+<meta property="og:type"               content="article" />
+<meta property="og:title"              content="Foro 2018" />
+<meta property="og:description"        content="Foro – 2018 - CentroGeo CONACYT" />
+<meta property="og:image"              content="https://www.centrogeo.org.mx/images/stories/pages/docencia/formacion-a-distancia/diplomado/banner_diplomado.jpg" />
 <link href="{{ STATIC_URL }}base2/css/bootstrap.min.css" rel="stylesheet">
 <link href="{{ STATIC_URL }}base2/css/bootstrap-responsive.min.css" rel="stylesheet">
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
@@ -31,10 +37,13 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a href="{{SITE_URL}}">
-        <img src="{{STATIC_URL}}forum/img/logo_RTMG_header.png" alt="RTMG" style="float: left; margin: 2px 10px;" title="RTMG">
+      <a href="https://www.centrogeo.org.mx/">
+        <img src="{{STATIC_URL}}base/img/header_logo-centrogeo.png" alt="CentroGeo" style="float: left; margin: 2px 10px;" title="CentroGeo">
       </a>
-
+      <h1>
+      Centro de Investigación en
+Ciencias de Información Geoespacial
+</h1>
       <!-- <img src="{{STATIC_URL}}forum/img/Logo_RTMG.png" alt="RTMG" style="float: left; margin: 2px 10px; width: 150px; height: 80px;" title="RTMG"> -->
       <!-- <img src="{{STATIC_URL}}base2/img/CENTROGE_LOGO_NUEVO_BLANCO.png" alt="" style="float: right; margin: 2px 10px;" title="CentroGeo"> -->
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -103,11 +112,11 @@
       {% endif %}
       <!--/.nav-collapse -->
       <ul class="mainnav">
-        <li class="{% if 'home' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.agreement_and_proposal' %}"><i class="fa fa-home"></i><span>Principal</span> </a> </li>
-        <li class="{% if 'agreementgesp' in request.get_full_path %}active{%endif%}"><a href="{% url 'agreementgesp.views.list_agreementgesp' %}"><i class="icon-list-alt"></i><span>Documentos</span> </a> </li>
-        <li class="{% if 'upload_document' in request.get_full_path %}active{%endif%}"><a href="{% url 'doctos.views.upload_document' %}"><i class="fa fa-file-text"></i><span>Agregar Documentos</span> </a> </li>
+        <li class="{% if 'home' in request.get_full_path %}active{%endif%}"><a href="https://www.centrogeo.org.mx/"><i class="fa fa-home"></i><span>CentroGeo</span> </a> </li>
+        <!-- <li class="{% if 'agreementgesp' in request.get_full_path %}active{%endif%}"><a href="{% url 'agreementgesp.views.list_agreementgesp' %}"><i class="icon-list-alt"></i><span>Documentos</span> </a> </li>
+        <li class="{% if 'upload_document' in request.get_full_path %}active{%endif%}"><a href="{% url 'doctos.views.upload_document' %}"><i class="fa fa-file-text"></i><span>Agregar Documentos</span> </a> </li> -->
         <li class="{% if 'forum_web' in request.get_full_path %}active{%endif%}"><a href="{% url 'forum.views.forum_web' %}"><i class="fa fa-comments-o"></i><span>Foro</span> </a> </li>
-        <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li>
+        <!-- <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li> -->
       </ul>
     </div>
     <!-- /container -->

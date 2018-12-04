@@ -70,7 +70,7 @@ def agreement_and_proposal(request):
 
 def home_page(request):
     if not request.user.is_anonymous():
-        return HttpResponseRedirect('/manager/privado')
+        return HttpResponseRedirect('/forum/forum/forum_web/')
     if request.method == 'POST':
         formulario = AuthenticationForm(request.POST)
         if formulario.is_valid:
@@ -90,7 +90,7 @@ def home_page(request):
         formulario = AuthenticationForm()
     return render_to_response('ingresar.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
-@permission_required('is_staff')
+# @permission_required('is_staff')
 def nuevo_usuario(request):
     if request.method=='POST':
         formulario = MyUserCreationForm(request.POST)
@@ -110,7 +110,7 @@ def nuevo_usuario(request):
 
 def ingresar(request):
     if not request.user.is_anonymous():
-        return HttpResponseRedirect('/manager/privado')
+        return HttpResponseRedirect('/forum/forum/forum_web/')
     if request.method == 'POST':
         formulario = AuthenticationForm(request.POST)
         if formulario.is_valid:

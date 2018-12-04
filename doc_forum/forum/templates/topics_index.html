@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap_tags %}
-{% block title %} Temas {% endblock %}
+{% block title %} Foro {% endblock %}
 
-{% block body_class %}Temas{% endblock %}
+{% block body_class %}Foro{% endblock %}
 
 {% block body %}
 <div class="span12">
   <div class="widget ">
     <div class="widget-header">
         <i class="fa fa-university"></i>
-        <h3>Temas</h3>
+        <h3>Foro</h3>
     </div> <!-- /widget-header -->
     <div class="widget-content">
 	<div class="btn-add">
-    <a href="{% url "upload_topic" %}" class="btn btn-primary pull-right" id="btn-list">Agregar un Tema</a>
+    <a href="{% url "upload_topic" %}" class="btn btn-primary pull-right" style="background-color: #DC7828;" id="btn-list">Agregar un Tema</a>
     </div>
     <div class="table-responsive">
     <table class="table table-striped">
@@ -41,7 +41,7 @@
                   <span>{{ wp.creation_date|date:"l j, F, Y" }}</span>
                 </td>
                 <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
-                <td>{{ wp.user }} </td>
+                <td>{{ wp.user.first_name }} {{ wp.user.last_name }} </td>
             </tr>
             {% empty %}
                 <tr>
