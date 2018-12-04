@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% block title %} Convenios {% endblock %}
+
+{% block body_class %}Convenios{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="fa fa-user-o"></i>
+        <h3>Responsables</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+<div class="col-md-6">
+<form id="search_agrees" action="" method="get" name="search_agrees" >{% csrf_token %}
+            {% if items %}
+                <a href="{% url "upload_peoplecontac" %}" >
+                    <button type="button" class="btn btn-default pull-right" name="Agregar Convenio">Agregar Responsable
+                    </button>
+                </a>
+
+            {% else %}
+                <a href="{% url "upload_peoplecontac" %}" >
+                    <button type="button" class="btn btn-default pull-right" name="Agregar Convenio">Agregar Responsable
+                      </button></a>
+            {% endif %}
+</form>
+
+
+		</div>
+<input type="hidden" name="site" id="site" class="site" values="{{ site }}">
+
+    <div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+                 <th class="agree-detail">Nombre </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for wp in items %}
+			<tr>
+            	<td><a href="{% url 'agreementgesp.views.update_peoplecontac' wp.id %}">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </a>
+                {{ wp.name }}</td>
+			</tr>
+			{% empty %}
+				<tr>
+					<td colspan="9" class="text-center">No hay responsables</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

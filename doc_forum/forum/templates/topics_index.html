@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% block title %} Temas {% endblock %}
+
+{% block body_class %}Temas{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="fa fa-university"></i>
+        <h3>Temas</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+	<div class="btn-add">
+    <a href="{% url "upload_topic" %}" class="btn btn-primary pull-right" id="btn-list">Agregar un Tema</a>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                 <th class="agree-detail">Nombre </th>
+                 <th class="agree-detail">Fecha </th>
+                  <th class="agree-detail">Estatus </th>
+                 <th class="agree-detail">Usuario que lo creo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wp in topics %}
+            <tr>
+                <td>
+                  <!-- <a href="{% url 'update_topic' wp.id %}">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a> -->
+                <a href="{% url 'view_topic' wp.id %}">
+                  {{wp.title|truncatechars:60}}
+                </a>
+                </td>
+                <td>
+                  <span>{{ wp.creation_date|date:"l j, F, Y" }}</span>
+                </td>
+                <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
+                <td>{{ wp.user }} </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">No hay Temas</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

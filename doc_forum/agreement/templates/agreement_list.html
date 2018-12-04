@@ -1,0 +1,392 @@
+{% extends "research_base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% block title %} Convenios {% endblock %}
+
+{% block body_class %}Convenios{% endblock %}
+
+{% block body %}
+
+<!--HEADER-TITULO-->
+		<div id="page-header" class="content">
+			<div class="container">
+				<div class="titulo-blk-row">
+					<div class="titulo-img blk-cell"><img src="{{STATIC_URL}}base/img/hand-shake_blue.png" alt=""></div>
+					<div class="titulo-txt blk-cell">
+						<h2>Convenios</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="container">
+<div class="col-md-6">
+   <!-- <label class="cbx_search">
+        <select>
+            <option selected> Tipo de busqueda </option>
+            <option>No. Programa </option>
+            <option>Instrumento Legal </option>
+        </select>
+    </label>-->
+<form id="search_agrees" action="" method="get" name="search_agrees" >{% csrf_token %}
+        <input id="vigente" type="checkbox" value="vigente" name="vigente">Vigente
+        <input id="todos" type="checkbox" value="todos" name="vigente">Todos
+        <input id="search_agreement" type="text" placeholder="Buscar Convenios" name="nombre">
+        <button type="submit" class="btn btn-default m-left-5" id="search_agree" name="search_agrees">Buscar
+         </button>
+            {% if items %}
+                <a href="{% url "export_agreement" %}">
+                    <button type="button" class="btn btn-default pull-right">
+                         Exportal a Excel</button>
+                </a>
+                <a href="{% url "upload_agreement" %}" >
+                    <button type="button" class="btn btn-default pull-right" name="Agregar Convenio">Agregar Convenio
+                    </button>
+                </a>
+
+            {% else %}
+                <a href="{% url "export_agreement" %}">
+                    <button type="button" class="btn btn-default pull-right btn-deactivate">
+                         Exportal a Excel</button>
+                </a>
+                <a href="{% url "upload_agreement" %}" >
+                    <button type="button" class="btn btn-default pull-right" name="Agregar Convenio">Agregar Convenio
+                      </button></a>
+            {% endif %}
+</form>
+
+
+		</div>
+	<div class="btn-add">
+    <!--<a href="{% url "upload_agreement" %}" class="btn btn-primary pull-right" id="btn-list">Agregar un convenio</a>-->
+    </div>
+<!--
+    <div style="clear:both;">
+		{% for item in items %}
+			<div class="mm-sjcat-T2-categories">
+			<a href="{% url 'agreement.views.detail_agreement' item.id %}">
+				<div class="mm-sjcat-T2-image">
+					<img src="{{STATIC_URL}}agreements/img/hand-shake.png">
+				</div>
+				<div class="mm-sjcat-T2-title">{{item.legasl_instrument|truncatechars:60}}</div>
+				<p class="mm-sjcat-T2-des"><span class="owner">{{item.description|truncatewords:16}}</span></p>
+				<p class="mm-sjcat-T2-des"><i class="fa fa-building-o"></i> {{item.conterpart_institution_acroniym}}</p>
+				<p class="mm-sjcat-T2-des"><i class="fa fa-calendar-o"></i> {{item.creation_date|date:"l j, F, Y"}}</p>
+			</a>
+			<div class="mm-sjcat-T2-dot"></div>
+		</div>
+		{% empty %}
+		  <li>Aún no hay convenios</li>
+		{% endfor %}
+    </div>
+-->
+<input type="hidden" name="site" id="site" class="site" values="{{ site }}">
+
+    <div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+              <!--
+				<th class="agree-detail">No. Programa </th>
+                <th class="agree-detail">Instrumento Legal Subscrito </th>
+                <th class="agree-detail">Ver Documento</th>
+                <th class="agree-detail">Documento Aceptado</th>
+                <th class="agree-detail">Ver Docuemnto</th>
+                <th class="agree-detail">Documento Legal</th>
+                <th class="agree-detail">Ver Documento </th>
+
+
+                <th class="agree-detail">Descripcion del Convenio </th>
+                -->
+                 <th class="agree-detail">No. Programa </th>
+                 <th class="agree-detail">Instrumento Legal Subscrito </th>
+                 <!--<th class="agree-detail">fecha de firma </th> 
+                 <th class="agree-detail">fecha de inicio </th>
+                 <th class="agree-detail">fecha de termino </th>
+
+                 <th class="agree-detail">Duración </th> 
+                 <th class="agree-detail">Vigente </th>-->
+                 <th class="agree-detail">Modalidad del Instrumento </th>
+                 <th class="agree-detail">Version del documento </th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for wp in items %}
+			<tr>
+             <!--
+				<td><a href="{% url 'agreement.views.detail_agreement' wp.id %}">{{ wp.prog_number }}</a></td>
+                 {% if wp.docfile_legasl_instrument %}
+                     <td>{{ wp.legasl_instrument }}</td>
+                    <td>
+                    <a href="{{MEDIA_URL}}{{wp.docfile_legasl_instrument}}">
+                         <img src="{{STATIC_URL}}agreements/img/downloading-green-little.png" title="{{wp.docfile_legasl_instrument}}" class="img-docto"/>
+                    </a>
+
+                    </td>
+                 {% else %}
+                     <td>No hay documento de instrumento legal</td>
+                     <td>
+                          <a href="{% url 'agreement.views.update_agreement' wp.id %}">
+                              <img src="{{STATIC_URL}}agreements/img/file.png" title="No hay documento adjunto. Agregar. "/>
+                          </a>
+                    </td>
+                {% endif %}
+
+
+                {% if wp.docto_acept %}
+                     <td>{{ wp.docto_name_acept }}</td>
+                    <td>
+                    <a href="{{MEDIA_URL}}{{wp.docto_acept}}">
+                         <img src="{{STATIC_URL}}agreements/img/downloading-green-little.png" title="{{wp.docto_acept}}" class="img-docto"/>
+                    </a>
+
+                    </td>
+                 {% else %}
+                     <td>No hay documento aceptado</td>
+                     <td>
+                          <a href="{% url 'agreement.views.update_agreement' wp.id %}">
+                              <img src="{{STATIC_URL}}agreements/img/file.png" title="No hay documento adjunto. Agregar. "/>
+                          </a>
+                    </td>
+                {% endif %}
+
+                {% if wp.docto_legal %}
+                     <td>{{ wp.docto_legal_name }}</td>
+                    <td>
+                    <a href="{{MEDIA_URL}}{{wp.docto_legal}}">
+                         <img src="{{STATIC_URL}}agreements/img/downloading-green-little.png" title="{{wp.docto_legal}}" class="img-docto"/>
+                    </a>
+
+                    </td>
+                 {% else %}
+                     <td>No hay documento legal</td>
+                     <td>
+                          <a href="{% url 'agreement.views.update_agreement' wp.id %}">
+                              <img src="{{STATIC_URL}}agreements/img/file.png" title="No hay documento adjunto. Agregar. "/>
+                          </a>
+                    </td>
+                {% endif %}
+               <td>{{ wp.description }}</td>
+               -->
+
+            	<td><a href="{% url 'agreement.views.detail_agreement' wp.id %}">
+                    <img src="{{STATIC_URL}}base/img/search.svg" class="img-space"/>
+                </a>
+                {{ wp.prog_number }}</td>
+				<td>{{ wp.legasl_instrument }} </td>
+				 
+                <!--<td>{{ wp.signature_date }} </td>
+                <td>{{ wp.start_date }} </td>
+                <td>{{ wp.end_date }} </td>
+                <td>{{ wp.status }} </td>
+                <td>{{ wp.end_date }} </td>-->
+                <td>{{ wp.modal }} </td>
+                <td>{{ wp.version_docto }} </td>
+
+			</tr>
+			{% empty %}
+				<tr>
+					<td colspan="9" class="text-center">No hay convenios</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{{ STATIC_URL }}base/js/jquery.min.js"></script>
+    <script type="text/javascript">
+  $(document).ready(function(){
+     $('#vigente').on("click", function(e){
+         var todos = "";
+         var vigente = "";
+         if($("#vigente").is(':checked')) {
+            vigente = $("#vigente").val();
+        }
+         else {
+             todos = $("#vigente").val();
+         }
+         $.ajax({
+         data: {'vigente': vigente, 'todos':todos},
+         url: '/agreement/searchvalid/',
+         type: 'get',
+         success : function(data) {
+                    console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>No. Programa </th>" +
+                        "<th class='agree-detail'>Instrumento Legal Subscrito</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Modalidad del Instrumento</th>" +
+                        "<th class='agree-detail'>Version del documento</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].prog_number+
+                        "</td>"+
+                        "<td>"+data[i].legasl_instrument+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].modal+"</td>"+
+                        "<td>"+data[i].version_docto+"</td>";
+                        /**
+                        if(data[i].docfile_legasl_instrument)
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/downloading-green-little.png' title='"+data[i].docfile_legasl_instrument+"'/>"+data[i].docfile_legasl_instrument+"</td>";
+                        }
+                        else
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/file.png' title='No hay documento adjunto. Agregar. '/></td>";
+                        }**/
+
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+    });
+
+
+      $('#todos').on("click", function(e){
+         var todos = "";
+         var vigente = "";
+         if($("#vigente").is(':checked')) {
+            vigente = $("#vigente").val();
+        }
+         else {
+             todos = $("#vigente").val();
+         }
+         $.ajax({
+         data: {'vigente': vigente, 'todos':todos},
+         url: '/agreement/searchall/',
+         type: 'get',
+         success : function(data) {
+                    console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>No. Programa </th>" +
+                        "<th class='agree-detail'>Instrumento Legal Subscrito</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Modalidad del Instrumento</th>" +
+                        "<th class='agree-detail'>Version del documento</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].prog_number+
+                        "</td>"+
+                        "<td>"+data[i].legasl_instrument+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].modal+"</td>"+
+                        "<td>"+data[i].version_docto+"</td>";
+                        /**
+                        if(data[i].docfile_legasl_instrument)
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/downloading-green-little.png' title='"+data[i].docfile_legasl_instrument+"'/>"+data[i].docfile_legasl_instrument+"</td>";
+                        }
+                        else
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/file.png' title='No hay documento adjunto. Agregar. '/></td>";
+                        }**/
+
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+    });
+        //Busqueda general
+     $('button#search_agree').on("click", function(e){
+       // Enviamos el formulario usando AJAX
+         var consulta = $("#search_agreement").val();
+         var todos = "";
+         var vigente = "";
+         if($("#todos").is(':checked')) {
+            todos = $("#todos").val();
+        }
+         if($("#vigente").is(':checked')) {
+            vigente = $("#vigente").val();
+        }
+       if($('#search_agreement').val()=="")
+       {
+             alert("Ingresa un criterio de busqueda");
+            return false;
+       }
+       else
+       {
+
+             $.ajax({
+         data: {'nombre': consulta,'todos':todos,'vigente':vigente},
+         url: '/agreement/searchs/',
+         type: 'get',
+         success : function(data) {
+                 //alert(data[0].id);
+                 console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>No. Programa </th>" +
+                        "<th class='agree-detail'>Instrumento Legal Subscrito</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Modalidad del Instrumento</th>" +
+                        "<th class='agree-detail'>Version del documento</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].prog_number+
+                        "</td>"+
+                        "<td>"+data[i].legasl_instrument+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].modal+"</td>"+
+                        "<td>"+data[i].version_docto+"</td>";
+                        /**
+                        if(data[i].docfile_legasl_instrument)
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/downloading-green-little.png' title='"+data[i].docfile_legasl_instrument+"'/>"+data[i].docfile_legasl_instrument+"</td>";  
+                        }
+                        else
+                        {
+                            htmls+="<td>  <img src='{{STATIC_URL}}agreements/img/file.png' title='No hay documento adjunto. Agregar. '/></td>";
+                        }**/
+                         
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+   }
+        return false;
+    });
+
+
+         //detail aggrement  Este metodo es para los objetos  que aun no existen en el DOM
+    $('.table-responsive').on("click","td.detail_agreProg", function(e){
+       // Redireccionamos al detalle del convenio
+        var id_ag = $(this).attr('id');
+        var site = $(".site").val();
+        window.location= site+"/agreement/"+id_ag;
+
+    });
+
+
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block title %} Usuario {% endblock %}
+
+{% block body_class %}Usuario{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-user"></i>
+        <h3>Editar Usuario</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+		<div class="col-md-6" id="general">
+			<form id="formulario" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+				{{formulario|as_bootstrap}}
+				<p><input type="submit" class="btn btn-primary" value="Confirmar"></p>
+			</form>
+		</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

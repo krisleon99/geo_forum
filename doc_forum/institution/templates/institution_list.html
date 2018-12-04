@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% block title %} Instituciones {% endblock %}
+
+{% block body_class %}Intution{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="fa fa-university"></i>
+        <h3>Instituciones</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+	<div class="btn-add">
+    <a href="{% url "upload_institution" %}" class="btn btn-primary pull-right" id="btn-list">Agregar una Intitución</a>
+    </div>
+    <div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                 <th class="agree-detail">Nombre </th>
+                 <th class="agree-detail">Siglas </th>
+                 <th class="agree-detail">Responsable </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wp in items %}
+            <tr>
+                <td><a href="{% url 'update_institution' wp.id %}">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </a>
+                {{wp.name|truncatechars:60}}</td>
+                <td>{{ wp.alias }} </td>
+                <td>{{ wp.legal_representative }} </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="9" class="text-center">No hay convenios</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+{% endblock %}

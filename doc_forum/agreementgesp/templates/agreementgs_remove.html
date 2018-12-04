@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ agree.subscription_field }} — {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-list-alt"></i>
+        <h3>Convenio: {{ agree.setid }} </h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+      <form action="{% url "remove_agreementgesp" agree.id %}" method="POST">
+        <h3>
+            ¿Esta seguro que desea eliminar el convenio: {{ agree.setid }}?
+        </h3>
+
+        <br>
+        {% csrf_token %}
+        <input type="hidden" value="{{ agree.typename }}" />
+        <div class="form-actions">
+          <input type="submit" value="Si eliminar" class="btn btn-danger" />
+          <a href="{% url "detail_agreementgesp" agree.id %}" class="btn btn-info">No eliminar</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

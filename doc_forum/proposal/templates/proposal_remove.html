@@ -1,0 +1,28 @@
+{% extends "research_base.html" %}
+{% load i18n %}
+
+{% block title %}{{ agree.title }} — {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row"><br>
+    <div class="col-md-8">
+      <form action="{% url "remove_proposal" agree.id %}" method="POST">
+        <h2>
+          {% blocktrans with agree.title as prop_title %}
+            ¿Esta seguro que desea eliminar el convenio: {{ prop_title }}?
+          {% endblocktrans %}
+        </h2>
+
+        <br>
+        {% csrf_token %}
+        <input type="hidden" value="{{ agree.typename }}" />
+        <div class="form-actions">
+          <input type="submit" value="{% trans "Yes, I am sure" %}" class="btn btn-danger" />
+          <a href="{{ agree.get_absolute_url }}" class="btn btn-info">{% trans "No, don't remove it" %}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,256 @@
+{% extends "research_base.html" %}
+{% load i18n %}
+{% block title %} Propuestas {% endblock %}
+
+{% block body_class %}institution{% endblock %}
+
+{% block body %}
+
+<!--HEADER-TITULO-->
+		<div id="page-header" class="content">
+			<div class="container">
+				<div class="titulo-blk-row">
+					<div class="titulo-img blk-cell"><img src="{{STATIC_URL}}base/img/purpose-of-saving-money_blue.png" alt=""></div>
+					<div class="titulo-txt blk-cell">
+						<h2>Propuestas</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="container">
+    <div class="col-md-6">
+        <form id="search_agrees" action="" method="get" name="search_agrees" >{% csrf_token %}
+                <input id="vigente" type="checkbox" value="vigente" name="vigente">Vigente
+                <input id="todos" type="checkbox" value="todos" name="vigente">Todos
+                <input id="search_agreement" type="text" placeholder="Buscar Convenios" name="nombre">
+                <button type="button" class="btn btn-default m-left-5" id="search_agree" name="search_agrees">Buscar
+                 </button>
+              {% if items %}
+                   <a href="{% url "export_proposal" %}" >
+                        <button type="button" class="btn btn-default pull-right" name="excel">
+                             Exportal a Excel</button>
+                   </a>
+                  <a href="{% url "upload_proposal" %}" >
+                        <button type="button" class="btn btn-default pull-right" name="excel">
+                             Agregar Propuesta </button></a>
+
+                    {% else %}
+                  <a href="{% url "export_proposal" %}" >
+                        <button type="button" class="btn btn-default pull-right btn-deactivate" name="excel">
+                             Exportal a Excel </button>
+                  </a>
+                   <a href="{% url "upload_proposal" %}" >
+                        <button type="button" class="btn btn-default pull-right" name="excel">
+                        Agregar Propuesta </button></a>
+              {% endif %}
+        </form>
+	</div>
+<input type="hidden" name="site" id="site" class="site" values="{{ site }}">
+ <div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+                 <th class="agree-detail">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Titulo</th>
+                 <th class="agree-detail">Proyecto </th>
+                 <th class="agree-detail">Fondo Convocatoria </th>
+                 <th class="agree-detail">Responsable Técnico </th>
+                 <th class="agree-detail">Observaciones </th>
+                 <th class="agree-detail">Propuesta </th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for wp in items %}
+			<tr>
+
+                <td><a href="{% url 'proposal.views.detail_proposal' wp.id %}">
+                    <img src="{{STATIC_URL}}base/img/search.svg" class="img-space"/>
+                </a>
+                {{ wp.title }}</a></td>
+                <td>{{ wp.project }}</td>
+                <td>{{ wp.call_background }} </td>
+                <td>{{ wp.techical_responsible }} </td>
+                <td>{{ wp.observation }} </td>
+                <td>{{ wp.proposal_name }} </td>
+			</tr>
+			{% empty %}
+				<tr>
+					<td colspan="9" class="text-center">No hay propuestas</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+    <script src="{{ STATIC_URL }}base/js/jquery.min.js"></script>
+    <script type="text/javascript">
+  $(document).ready(function(){
+     $('#todos').on("click", function(e){
+         var todos = "";
+         var vigente = "";
+         if($("#vigente").is(':checked')) {
+            vigente = $("#vigente").val();
+        }
+         else {
+             todos = $("#vigente").val();
+         }
+         $.ajax({
+         data: {'vigente': vigente, 'todos':todos},
+         url: '/proposal/searchall/',
+         type: 'get',
+         success : function(data) {
+                    console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>Titulo </th>" +
+                        "<th class='agree-detail'>Proyecto</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Fondo Convocatoria</th>" +
+                        "<th class='agree-detail'>Responsable Téctino</th>" +
+                        "<th class='agree-detail'>Observacionoes</th>" +
+                        "<th class='agree-detail'>Propuesta</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].title+
+                        "</td>"+
+                        "<td>"+data[i].project+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].call_background+"</td>"+
+                        "<td>"+data[i].techical_responsible+"</td>"+
+                         "<td>"+data[i].observation+"</td>"+
+                        "<td>"+data[i].proposal_name+"</td>";
+
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+    });
+
+       $('#vigente').on("click", function(e){
+         var todos = "";
+         var vigente = "";
+         if($("#vigente").is(':checked')) {
+            vigente = $("#vigente").val();
+        }
+         else {
+             todos = $("#vigente").val();
+         }
+         $.ajax({
+         data: {'vigente': vigente, 'todos':todos},
+         url: '/proposal/searchvalid/',
+         type: 'get',
+         success : function(data) {
+                    console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>Titulo </th>" +
+                        "<th class='agree-detail'>Proyecto</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Fondo Convocatoria</th>" +
+                        "<th class='agree-detail'>Responsable Téctino</th>" +
+                        "<th class='agree-detail'>Observacionoes</th>" +
+                        "<th class='agree-detail'>Propuesta</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].title+
+                        "</td>"+
+                        "<td>"+data[i].project+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].call_background+"</td>"+
+                        "<td>"+data[i].techical_responsible+"</td>"+
+                         "<td>"+data[i].observation+"</td>"+
+                        "<td>"+data[i].proposal_name+"</td>";
+
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+    });
+
+        //Busqueda general
+     $('button#search_agree').on("click", function(e){
+       // Enviamos el formulario usando AJAX
+         var consulta = $("#search_agreement").val();
+       if($('#search_agreement').val()=="")
+       {
+             alert("Ingresa un criterio de busqueda");
+            return false;
+       }
+       else
+       {
+
+             $.ajax({
+         data: {'nombre': consulta},
+         url: '/proposal/searchs/',
+         type: 'get',
+         success : function(data) {
+                 //alert(data[0].id);
+                 console.log(data[0].id);
+             var id_s = data[0].id;
+             var htmls = "<table class='table table-striped'>" +
+                        "<thead><tr><th class='agree-detail'>Titulo </th>" +
+                        "<th class='agree-detail'>Proyecto</th>" +
+                       // "<th class='agree-detail'>fecha de Inicio</th>" +
+                        //"<th class='agree-detail'>fecha de termino</th>" +
+                        "<th class='agree-detail'>Fondo Convocatoria</th>" +
+                        "<th class='agree-detail'>Responsable Téctino</th>" +
+                        "<th class='agree-detail'>Observacionoes</th>" +
+                        "<th class='agree-detail'>Propuesta</th>" +
+                        "</tr></thead><tbody>";
+
+             for (i = 0; i < data.length; i++) {
+                        htmls += "<tr> " +
+                        "<td class='detail_agreProg' id='"+data[i].id+"'><a href='#'><img src='{{STATIC_URL}}base/img/search.svg' class='img-space' /></a>" + data[i].title+
+                        "</td>"+
+                        "<td>"+data[i].project+"</td>"+
+                       // "<td>"+data[i].start_date+"</td>"+
+                        //"<td>"+data[i].end_date+"</td>"
+                        "<td>"+data[i].call_background+"</td>"+
+                        "<td>"+data[i].techical_responsible+"</td>"+
+                         "<td>"+data[i].observation+"</td>"+
+                        "<td>"+data[i].proposal_name+"</td>";
+
+                         }
+             htmls += "</tbody></table>";
+                $('.table-responsive').html(htmls);
+         },
+         error : function(message) {
+                 console.log(message);
+              }
+         });
+   }
+        return false;
+    });
+
+
+         //detail aggrement  Este metodo es para los objetos  que aun no existen en el DOM
+    $('.table-responsive').on("click","td.detail_agreProg", function(e){
+       // Redireccionamos al detalle del convenio
+        var id_ag = $(this).attr('id');
+        var site = $(".site").val();
+        window.location= site+"/proposal/"+id_ag;
+
+    });
+
+
+  });
+</script>
+{% endblock %}

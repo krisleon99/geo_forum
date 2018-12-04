@@ -1,0 +1,27 @@
+.orange{
+  color: rgb(246, 178, 107);
+}
+.green{
+      color: rgb(147, 196, 125);
+}
+.red{
+      color: rgb(224, 102, 102);
+}
+.blue{
+      color: rgb(111, 168, 220);
+}
+#right-settings{
+      cursor: pointer;
+}
+.down-title{
+      margin-top: -10px;
+}
+
+.return-forum{
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+textarea {
+	width:98%;
+}

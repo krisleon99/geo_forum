@@ -1,0 +1,206 @@
+{% extends "research_base.html" %}
+{% load i18n %}
+
+{% block title %} Convenios {% endblock %}
+
+{% block body_class %}agree{% endblock %}
+
+{% block body %}
+<!--HEADER-TITULO-->
+		<div id="page-header" class="content">
+			<div class="container">
+				<div class="titulo-blk-row">
+					<div class="titulo-img blk-cell"><img src="{{STATIC_URL}}base/img/hand-shake_blue.png" alt=""></div>
+					<div class="titulo-txt blk-cell">
+						<h2>{{agree.description}}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="container">
+<div class="row">
+        <table class="table table-striped">
+            <caption class=".detail-tbl">{{ prop.call_background|safe|escape }}</caption>
+            <tr>
+                <th class="detail-tbl-th">No. Programa</th>
+                <th class="detail-tbl-th">No. Registro</th>
+                <th class="detail-tbl-th">Clasificación</th>
+                <th class="detail-tbl-th">Institución</th>
+                <th class="detail-tbl-th">Versión</th>
+                <th class="detail-tbl-th">Sector</th>
+                <th class="detail-tbl-th">Ambito de Subscripcion</th>
+
+            </tr>
+            <tr>
+                <td>{{ agree.prog_number }}</td>
+                <td>{{ agree.registration_number }}</td>
+                <td>{{ agree.document_classification|safe|escape }}</td>
+                <td>
+                    {% if agree.conterpart_institution %}
+                        {{ agree.conterpart_institution }}
+                        {% else %}
+                        {{ agree.conterpart_institution_acroniym }}
+                    {% endif %}
+
+                </td>
+                <td>{{ agree.version_docto|safe|escape }}</td>
+            <td>{{ agree.conterpart_sector|safe|escape }}</td>
+            <td>{{ agree.subscription_field|safe|escape }}</td>
+
+            </tr>
+            <tr>
+               <th class="detail-tbl-th">Fecha Inicio</th>
+               <td>{{ agree.creation_date|date:"l j, F, Y" }}</td>
+               <td>  <span class="detail-tbl-th">Fecha Firma: </span>{{ agree.signature_date|date:"l j, F, Y" }}</td>
+               <!--<td> <span class="detail-tbl-th">Duración:</span> {{duration}}</td>-->
+                 <th class="detail-tbl-th">Fecha Termino:</th>
+               <td>{{ agree.end_date|date:"l j, F, Y" }}</td>
+                 {% if agree.end_date <= now %}
+                <th rowspan="2">  <span class="agree-detail">Este proyecto ya no es vigente</span> </th>
+                {% else %}
+                     <th colspan="2">  <span class="agree-detail">Proyecto vigente</span>   </th>
+                {% endif %}
+            </tr>
+
+        </table>
+	<div class="col-md-8" id="general">
+    <!--
+		<div style="padding: 15px 0; border-bottom: 1px dotted #CCC;">
+       <div><span class="agree-detail">No. Prog:</span>     {{ agree.prog_number|safe|escape }}</div>
+       <div><span class="agree-detail">Instrumento Legal Subscrito:</span>     {{ agree.legasl_instrument|safe|escape }}</div>
+       <div><span class="agree-detail">Clasificacion del Documento:</span>     {{ agree.document_classification|safe|escape }}</div>
+       <div><span class="agree-detail">Numero de Registro:</span>     {{ agree.registration_number|safe|escape }}</div>
+       <div><span class="agree-detail">Siglas de Institucion Contraparte:</span>     {{ agree.conterpart_institution_acroniym|safe|escape }}</div>
+       <div><span class="agree-detail">Ambito de Subscripcion:</span>     {{ agree.subscription_field|safe|escape }}</div>
+       <div> <span class="agree-detail">Sector Contraparte:</span>    {{ agree.conterpart_sector|safe|escape }}</div>
+       <div><span class="agree-detail">Institucion Contraparte:</span>     {{ agree.conterpart_institution|safe|escape }}</div>
+       <div>  <span class="agree-detail">Descripcion del Convenio:</span>   {{ agree.description|safe|escape }}</div>
+       <div> <span class="agree-detail">fecha de firma:</span>    {{ agree.signature_date|date:"l j, F, Y" }}</div>
+        <div> <span class="agree-detail">fecha de inicio:</span>   {{ agree.creation_date|date:"l j, F, Y" }}</div>
+        <div> <span class="agree-detail">fecha de termino:</span>   {{ agree.end_date|date:"l j, F, Y" }}</div>
+        <div>  <span class="agree-detail">Version del documento:</span>  {{ agree.version_docto|safe|escape }}</div>
+             {% if agree.end_date <= now %}
+                <div>  <span class="agree-detail">Este proyecto ya no es vigente</span> </div>
+            {% else %}
+                 <div>  <span class="agree-detail">Proyecto vigente</span>   </div>
+            {% endif %}
+		</div>
+		-->
+    <h3>Descargar Documentos Asociados:</h3>
+         {% if agree.docfile_legasl_instrument %}
+
+             <div class="download-text">
+                   <a href="{{MEDIA_URL}}{{agree.docfile_legasl_instrument}}">
+                         <img src="{{STATIC_URL}}base/img/download.svg" title="{{agree.docfile_legasl_instrument}}" class="img-docto"/>
+                   </a>
+                    <span class="download-sub-title">{{ agree.legasl_instrument }}</span>
+             </div>
+
+         {% endif %}
+        {% if agree.docto_acept %}
+            <div class="download-text">
+                   <a href="{{MEDIA_URL}}{{agree.docto_acept}}">
+                         <img src="{{STATIC_URL}}base/img/download.svg" title="{{agree.docto_acept}}" class="img-docto"/>
+                   </a>
+                    <span class="download-sub-title">{{ agree.docto_name_acept }}</span>
+            </div>
+
+         {% endif %}
+         {% if agree.docto_legal %}
+              <div class="download-text">
+                   <a href="{{MEDIA_URL}}{{agree.docto_legal}}">
+                         <img src="{{STATIC_URL}}base/img/download.svg" title="{{agree.docto_legal}}" class="img-docto"/>
+                   </a>
+                    <span class="download-sub-title">{{ agree.docto_legal_name }}</span>
+              </div>
+         {% endif %}
+    <h3> Otros Asociados:</h3>
+    {% for doc in doctos %}
+        <div class="download-text">
+           <a href="{{MEDIA_URL}}{{doc.docto_pro}}">
+                 <img src="{{STATIC_URL}}base/img/download.svg" title="{{doc.docto_pro}}" class="img-docto"/>
+           </a>
+            <a href="{% url 'doctos.views.delete_docto' doc.id %}">
+                 <img src="{{STATIC_URL}}base/img/delete.svg" title="Eliminar Documento: {{doc.docto_pro}}" class="img-docto"/>
+           </a>
+            <span class="download-sub-title">{{ doc.title }}</span>
+        </div>
+        {% empty %}
+            <div class="download-text"><span class="download-title">No hay otros documentos</span></div>
+    {% endfor %}
+
+	</div>
+
+	<div class="col-md-4">
+
+	<ul class="list-group">
+	<li class="list-group-item">
+	<button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-document">Editar convenio</button>
+	</li>
+	<li class="list-group-item">
+	<a href="{% url 'upload_agreement' %}" class="btn btn-primary btn-block" id="btn-list">Agregar un convenio</a>
+	</li>
+    <!--<li class="list-group-item">
+	<button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#export-convenio">Exportar convenio</button>
+	</li>
+     Editar convenio-->
+	<div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Editar convenio</h4>
+	    </div>
+	    <div class="modal-body">
+
+	      <div class="row edit-modal">
+	        <div class="col-sm-3">
+
+	          <a class="btn btn-default btn-block btn-xs" href="{% url "update_agreement" agree.id %}">Editar</a>
+			  {% if "delete_resourcebase" in perms %}
+				<a class="btn btn-danger btn-block btn-xs" href="{% url "remove_agreement" agree.id %}">Eliminar</a>
+			  {% endif %}
+			</div>
+            <a href="{% url "upload_docto_agreement" agree.id %}">
+            <img src="{{STATIC_URL}}base/img/add-documents.svg" class="img-docto"></a>
+              <span class="download-sub-title">Agregar otro documento al convenio</span>
+	      </div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+	    </div>
+	  </div>
+	</div>
+	</div>
+    <!---Exportar convenio-->
+    	<div class="modal fade" id="export-convenio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Exportar convenio</h4>
+	    </div>
+	    <div class="modal-body">
+
+	      <div class="row edit-modal">
+	        <div class="col-sm-3">
+
+	          <h4>Convenio</h4>
+              <a href="#"><img src="{{STATIC_URL}}base/img/pdf-green.png" alt="" title="Exportar Convenio PDF"></a>
+
+			</div>
+	      </div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+	    </div>
+	  </div>
+	</div>
+	</div>
+    <!--Fin exportar convenio-->
+
+	</ul>
+	</div>
+</div>
+</div>
+{% endblock %}

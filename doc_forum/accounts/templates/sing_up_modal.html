@@ -1,0 +1,35 @@
+{% extends "site_base.html" %}
+{% load url from future %}
+{% load i18n %}
+{% load bootstrap_tags %}
+<!-- Contenido oculto para realizar el loggeo con facebook -->
+<!--Login with facebook-->
+<div class="modal fade" id="SigninModalFace" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
+            </div>
+            <form role="form" method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+              {% csrf_token %}
+              {{ form|as_bootstrap }}
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+              <div class="form-group">
+                <p><a href="{% url "forgot_username" %}">{% trans "Forgot your username?" %}</a></p>
+                <p><a href="{% url "account_password_reset" %}">{% trans "Forgot your password?" %}</a></p>
+              </div>
+              <button type="submit" class="btn btn-primary">{% trans "Log in" %}</button>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary btn-block">{% trans "Sign in" %}</button>
+                <hr></hr>
+                <div class="fb-login-button" id="fb-login-chat" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>
+              </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>

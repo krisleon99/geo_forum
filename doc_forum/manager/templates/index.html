@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %} {% trans "Módulo de gestión de documentos del proyecto RTMG" %}  {% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block middle %}
+<div class="main">
+  <div class="main-inner">
+    <div class="container">
+      <div class="row">
+        <div class="span6">
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="icon-list-alt"></i>
+              <h3> Dimensiones</h3>
+            </div>
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <div id="big_stats" class="cf">
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}" title="Ver Todos"><i class="fa fa-bullseye"></i></a> Total <br> <span class="value">{{ agre.count }}</span> </div>
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=GENERAL" title="Ver General"><i class="fa fa-linode"></i></a> GENERAL <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_1%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_1.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=1" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_1.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </td></div>
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=CONTEXTO TERRITORIAL" title="Ver CONTEXTO TERRITORIAL "><i class="fa fa-linode"></i></a> CONTEXTO TERRITORIAL <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_2%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_2.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=2" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_2.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                     </div>
+                  </div>
+                </div>
+                <!-- /widget-content -->
+              </div>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <div id="big_stats" class="cf">
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN GEOPOLÍTICA" title="Ver DIMENSIÓN GEOPOLÍTICA"><i class="fa fa-linode"></i></a> DIMENSIÓN GEOPOLÍTICA <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_3%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_3.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=3" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_3.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN DE SEGURIDAD" title="Ver DIMENSIÓN DE SEGURIDAD"><i class="fa fa-linode"></i></a> DIMENSIÓN DE SEGURIDAD <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_4%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_4.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=4" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_4.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN DE INSTITUCIONAL" title="Ver DIMENSIÓN DE INSTITUCIONAL"><i class="fa fa-linode"></i></a> DIMENSIÓN DE INSTITUCIONAL <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_5%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_5.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=5" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_5.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <!-- .stat -->
+                  </div>
+                </div>
+                <!-- /widget-content -->
+              </div>
+            </div>
+            <div class="widget-content">
+              <div class="widget big-stats-container">
+                <div class="widget-content">
+                  <div id="big_stats" class="cf">
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN LABORAL Y ECONÓMICA" title="Ver DIMENSIÓN LABORAL Y ECONÓMICA"><i class="fa fa-linode"></i></a> DIMENSIÓN LABORAL Y ECONÓMICA <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_6%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_6.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=6" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_6.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN SOCIAL Y CULTURAL" title="Ver DIMENSIÓN SOCIAL Y CULTURAL"><i class="fa fa-linode"></i></a> DIMENSIÓN SOCIAL Y CULTURAL <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_7%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_7.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=7" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_7.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <!-- .stat -->
+                    <div class="stat"> <a href="{% url 'list_agreementgesp' %}?dimension=DIMENSIÓN ASENTAMIENTOS HUMANOS, CIUDADES Y MARCO AMBIENTAL" title="Ver DIMENSIÓN ASENTAMIENTOS HUMANOS, CIUDADES Y MARCO AMBIENTAL"><i class="fa fa-linode"></i></a>
+                      DIMENSIÓN ASENTAMIENTOS HUMANOS, CIUDADES Y MARCO AMBIENTAL <br>
+                      {% if request.user.is_authenticated %}
+                        {% for fm in fmail_8%}
+                              <a href="{% url 'leave_dimension' fm.id %}" title="Dejar de recibir correos cuando se suban documentos de esta dimensión.">
+                                 <i class="fa fa-thumbs-o-down fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                   <span class="value">{{ doc_dimension_8.count }}</span>
+                                 </i>
+                              </a>
+                              {% empty %}
+                                  <a href="{% url 'follow_dimension' %}?dimension=8" title="Recibirás correos cuando se suban documentos de esta dimensión.">
+                                     <i class="fa fa-thumbs-o-up fa-1g" aria-hidden="true" style="font-size: 20px;">
+                                       <span class="value">{{ doc_dimension_8.count }}</span>
+                                     </i>
+                                  </a>
+                          {% endfor %}
+                      {% endif %}
+                    </div>
+                    <!-- .stat -->
+                  </div>
+                </div>
+                <!-- /widget-content -->
+              </div>
+            </div>
+          </div>
+          <!-- /widget -->
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="fa fa-calendar"></i>
+              <h3> Eventos</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <div id='calendar'>
+              </div>
+            </div>
+            <!-- /widget-content -->
+          </div>
+        </div>
+        <!-- /span6 -->
+        <div class="span6">
+          <div class="widget widget-nopad">
+            <div class="widget-header"> <i class="fa fa-clock-o"></i>
+              <h3> Próximos eventos</h3>
+            </div>
+            <!-- /widget-header -->
+            <div class="widget-content">
+              <ul class="news-items">
+            {% for app in appointments %}
+                <li>
+                  <div class="news-item-date"> <span class="news-item-day">{{app.start_date|date:"j"}}</span> <span class="news-item-month">{{app.start_date|date:"M"}}</span> </div>
+                  <div class="news-item-detail">
+                     <a href="{% url "appointment.views.event_detail" app.id %}" class="news-item-title">
+                    <p class="news-item-preview">{{app.name}}</p></a>
+                  </div>
+                </li>
+                {% empty %}
+                  No hay eventos próximos
+            {% endfor %}
+              </ul>
+            </div>
+            <!-- /widget-content -->
+          </div>
+          <!-- /widget -->
+        </div>
+        <!-- /span6 -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /main-inner -->
+</div>
+<!-- /main -->
+{% endblock %}
+
+{% block extra_script %}
+<script>
+        $(document).ready(function() {
+          // $.alert({
+          //
+          //     title: 'Alert!',
+          //     content: 'Simple alert!',
+          // });
+        var date = new Date();
+        var d = date.getDate();
+        var m = date.getMonth();
+        var y = date.getFullYear();
+
+        var calendar = $('#calendar').fullCalendar({
+          header: {
+            left: 'prev,next today',
+            center: 'prevYear,title,nextYear',
+            right: ''
+          },
+          selectable: true,
+          selectHelper: true,
+          select: function(start, end, allDay) {
+$.confirm({
+
+    title: 'Agrega un evento.',
+    content: '' +
+    '<form action="" class="formName">' +
+    '<div class="form-group">' +
+    // '<label>Ingresa un evento.</label>' +
+    '<textarea rows="6" cols="190" placeholder="Tu evento" class="name form-control" required></textarea>' +
+    '</div>' +
+    '</form>',
+    width : 100,
+              height:100,
+              modal: true,
+    buttons: {
+        formSubmit: {
+            text: 'Guardar',
+            btnClass: 'btn-blue',
+            action: function () {
+                var title = this.$content.find('.name').val();
+                if(!title){
+                    $.alert('Ingresa un evento');
+                    return false;
+                }
+                // var title = prompt('Evento:');
+                if (title) {
+                  title = title.replace("\n"," ");
+                  calendar.fullCalendar('renderEvent',
+                    {
+                      title: title,
+                      start: start,
+                      end: end,
+                      allDay: allDay
+                    },
+                    true // make the event "stick"
+                  );
+                    query_data = {
+                     'event': title,
+                     'start':start
+                   }
+                   $.ajax({
+                     data: {'query_data': JSON.stringify(query_data),
+                          csrfmiddlewaretoken: '{{ csrf_token }}'
+                         },
+                     url: '{% url "event_save" %}',
+                     type: 'POST',
+                     success : function(done) {
+                       $.alert('Tu evento se guardo correctamente; ' + title);
+                       var id_event = 1;
+                       $('.news-items').prepend('<li><div class="news-item-date"> <span class="news-item-day">'+done[2]+'</span><span class="news-item-month">'+done[3]+'</span> </div><div class="news-item-detail">  <a href="#" class="news-item-title"><p class="news-item-preview">'+title+'</p></a></div></li>');
+                     },
+                     error : function(message) {
+                             console.log(message);
+                          }
+                     });
+                }
+
+            }
+        },
+        cancelar: function () {
+            //close
+        },
+    },
+    onContentReady: function () {
+        // bind to events
+        var jc = this;
+        this.$content.find('form').on('submit', function (e) {
+            // if the user submits the form by pressing enter in the field.
+            e.preventDefault();
+            jc.$$formSubmit.trigger('click'); // reference the button and click it
+        });
+    }
+});
+
+            calendar.fullCalendar('unselect');
+          },
+          editable: true,
+          events: [
+            {% for next in next_appointments %}
+            {
+              title: '{{next.name|truncatechars:11}}',
+              start: new Date({{next.start_date|date:"Y, n-1, j"}}),
+              end: new Date({{next.start_date|date:"Y, n-1, j"}}),
+              url: '{% url "appointment.views.event_detail" next.id %}',
+              color: '#66B98D'
+            }
+            {% ifnotequal forloop.revcounter forloop.last %}
+            ,
+            {% endifnotequal %}
+            {% endfor %}
+
+          ]
+        });
+
+      });
+    </script><!-- /Calendar  00ba8b -->
+{% endblock extra_script %}

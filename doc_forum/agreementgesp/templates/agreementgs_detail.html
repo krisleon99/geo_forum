@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}
+
+{% block title %} Convenios {% endblock %}
+
+{% block body_class %}agree{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-list-alt"></i>
+        <h3>Documento: {{ agree.title }} </h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+        <div style="float: right; padding: 10px;"><a href="{% url 'list_agreementgesp' %}"><i class="icon-list-alt"></i> Ir a listado de documentos</a></div>
+        <table class="table table-striped">
+            <caption class=".detail-tbl"></caption>
+            <tr>
+              <th>Autor:</th>
+              <td>{{ agree.author }}</td>
+                <th>Dimensión:</th>
+                <td>{{ agree.get_dimension_display }}</td>
+                <th>objetivo:</th>
+                <td>{{ agree.objetive }}</td>
+                <th>Fecha:</th>
+                <td>{{ agree.creation_date|date:"l j, F, Y" }}</td>
+            </tr>
+        </table>
+
+  <div class="col-md-8" id="general">
+    <h3>Descripción:</h3>
+            <div class="download-text"><span class="comment-forum-docto">{{ agree.description }}</span></div>
+  </div>
+{% if agree.docto_pro %}
+<div class="col-md-8" id="general">
+  <h3>Descarga:</h3>
+      <div class="download-text">
+         <a target="_blank" href="{{MEDIA_URL}}{{agree.docto_pro}}">
+               <i class="fa fa-download" aria-hidden="true"></i>
+         </a>
+          <span class="download-sub-title">{{ agree.title }}</span>
+      </div>
+</div>
+{% endif %}
+{% if agree.url %}
+<div class="col-md-8" id="general">
+  <h3>URL:</h3>
+      <div class="download-text">
+          <span class="download-sub-title"><a href="{{ agree.url }}" target="_blank">{{ agree.url }}</a></span>
+      </div>
+</div>
+{% endif %}
+{% if request.user.is_superuser and agree.username != 'admin' %}
+    <div class="col-sm-3">
+          <a class="btn btn-default btn-block btn-xs" href="{% url "update_agreementgesp_esp" agree.id %}">Editar</a>
+          <a class="btn btn-danger btn-block btn-xs" href="{% url "delete_docto" agree.id %}">Eliminar</a>
+    </div>
+{% elif request.user.id == agree.user.id  %}
+    <div class="col-sm-3">
+          <a class="btn btn-default btn-block btn-xs" href="{% url "update_agreementgesp_esp" agree.id %}">Editar</a>
+          <a class="btn btn-danger btn-block btn-xs" href="{% url "delete_docto" agree.id %}">Eliminar</a>
+    </div>
+{% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_script %}
+<script type="text/javascript">
+$(document).ready(function(){
+  var desc = "{{agree.description|safe}}";
+  var count = "{{count|safe}}";
+  for (var i = 0; i < count; i++) {
+    var p = $(".comment-forum-docto");
+    var hashtag = desc.indexOf("#");
+    var string = $('.comment-forum-docto').text();
+    var repl = desc.replace(/(^|\W)(#[a-z\d][\w-]*)/ig, '$1<a href="https://twitter.com/hashtag/$2">$2</a>');
+    repl=repl.replace("/#","/");
+    p.html(repl);
+    // p.html(string.replace(/#(\S*)/,'<a href="https://twitter.com/hashtag/$1">#$1</a>'));
+  }
+});
+</script>
+{% endblock %}

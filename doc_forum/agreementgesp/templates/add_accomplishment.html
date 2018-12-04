@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block title %} Convenio {% endblock %}
+
+
+{% block body_class %}Convenio{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="fa fa-star-o"></i>
+        <h3>Agregar Logro</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+    	<form id="formulario" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+			{{ formulario.media }}
+			{{formulario|as_bootstrap}}
+			<p><input type="submit" class="btn btn-primary" value="Confirmar"></p>
+		</form>
+    </div>
+  </div>
+</div>
+{% endblock %}

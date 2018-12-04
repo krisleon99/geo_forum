@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% block title %} Registrto {% endblock %}
+
+
+
+{% block body_class %}Registrto{% endblock %}
+{% block extra_head %}
+{% endblock %}
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-user"></i>
+        <h3>Registra un nuevo usuario</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+		<form id="formulario" method="post" action="">{% csrf_token %}
+			{{ formulario|as_bootstrap}}
+			<p><input type="submit" class="btn btn-primary" value="Registrar"></p>
+		</form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.js" type="text/javascript"></script>
+<script type="text/javascript">
+   $("#formulario").validate({
+           rules: {
+              username: { 
+                 required: true
+               } ,
+               first_name: { 
+                 required: true
+               } ,
+               last_name: { 
+                 required: true
+               } ,
+               email: { 
+                 required: true
+               } ,
+               password1: { 
+                 required: true,
+                    minlength: 6,
+                    maxlength: 10,
+
+               } , 
+
+                   password2: { 
+                    equalTo: "#id_password1",
+                     minlength: 6,
+                     maxlength: 10
+               } , 
+
+                   group: { 
+                    required: true
+               }
+
+
+           },
+     messages:{
+          username: { 
+                 required:"El nombre de usuario es obligatorio"
+
+               },
+         first_name: { 
+                 required:"El campo es obligatorio"
+
+               },
+         last_name: { 
+                 required:"El campo es obligatorio"
+
+               },
+         email: { 
+                 required:"El campo es obligatorio"
+
+               },
+         group: { 
+                 required:"El campo es obligatorio"
+
+               },
+         password1: { 
+                 required:"La contraseña es obligatoria"
+
+               },
+         password2: { 
+                 equalTo:"Verifique la contraseña"
+
+               }
+     }
+
+});
+</script>
+{% endblock extra_script %}

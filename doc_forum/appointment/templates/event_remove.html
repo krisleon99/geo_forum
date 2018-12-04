@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ ev.name }} — {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row"><br>
+    <div class="col-md-8">
+      <form action="{% url "delete_event" ev.id %}" method="POST">
+        <h2>
+          {% blocktrans with ev.name as ev_title %}
+            ¿Esta seguro que desea eliminar el evento: {{ ev_title }}?
+          {% endblocktrans %}
+        </h2>
+
+        <br>
+        {% csrf_token %}
+        <input type="hidden" value="{{ ev.typename }}" />
+        <div class="form-actions">
+          <input type="submit" value="Si, Eliminar" class="btn btn-danger" />
+          <a href="{{ ev.get_absolute_url }}" class="btn btn-info">{% trans "No, No Eliminar" %}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

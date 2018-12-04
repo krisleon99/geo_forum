@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %} Bienvenido {% endblock %}
+{% block body_class %}Bienvenido{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-user"></i>
+        <h3>
+          Bienvenido
+          <strong>
+            {{usuario.username}}
+          </strong>
+        </h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+      <p>
+          <h3>Bienvenidos al sitio para la gestión de documentos del proyecto RTMG</h3>
+        </br>
+        <h1> <span class="orange">Región</span> <span class="green">Transfronteriza</span>
+          <span class="red">México –</span> <span class="blue">Guatemala</span></h1>
+        </br>
+        <p>
+          Proyecto Región Transfronteriza México – Guatemala. dimensión regional y bases para su desarrollo integral (primera fase, 2017-2018), financiado por Conacyt: Fordecyt 291987
+        </p>
+        <p>
+          Instituciones participantes: El Colegio de la Frontera Norte, Centro de Investigación y Docencia Económicas, Centro de Investigación y Estudios Superiores en Antropología Social, Centro de Investigación en Ciencias de la Información Geoespacial, Instituto de Investigaciones Dr. José María Luis Mora, El Colegio de la Frontera Sur, Facultad Latinoamericana de Ciencias Sociales, sede Guatemala y Universidad de San Carlos, Guatemala
+        </p>
+        <p>
+          El propósito del sitio es ser un canal de comunicación entre los participantes de las ocho instituciones y de aquellos que se sumen al proyecto
+        </p>
+        </br>
+        <h4>
+          Propósito de la primera etapa
+        </h4>
+        </br>
+        <p>
+          Realizar un diagnóstico y análisis de las condiciones del desarrollo regional transfronterizo entre México y Guatemala, con una perspectiva multidisciplinaria que permita identificar y evaluar sus principales procesos constitutivos, de naturaleza institucional, económica, social, cultural y ambiental, identificando especialmente los principales puntos de tensión y las potencialidades de desarrollo. El objetivo abarca identificar y organizar jerárquicamente los rubros y parámetros que posibiliten un desarrollo regional transfronterizo, sustentable, cooperativo, corresponsable y enfocado hacia la mejora en la calidad de vida. La información generada, los análisis y el diseño de los reportes del estudio asumen como perspectiva su utilidad inmediata para acciones de política pública e iniciativas sociales.
+        </p>
+        <p>
+          Dimensiones
+        </p>
+        <li>
+          Geopolítica
+        </li>
+        <li>
+          Seguridad
+        </li>
+        <li>
+          Institucional
+        </li>
+        <li>
+          Laboral y económica
+        </li>
+        <li>
+          Social y cultural
+        </li>
+        <li>
+          Asentamientos humanos, ciudades y marco ambiental
+        </li>
+        </br>
+        <h4>
+          El presente módulo contiene:
+        </h4>
+        </br>
+        <li>
+          Un espacio para compartir documentos relacionados a las diversas dimensiones y objetivos del presente proyecto
+        </li>
+        <li>
+          Un foro de discusión en donde los usuarios del proyecto RTMG podrán proponer y discutir ideas.
+        </li>
+        <li>
+          Un calendario en donde podrán anotar y compartir fechas importantes sobre eventos relacionados con el proyecto.
+        </li>
+          </br>
+        <p>
+          El proyecto se complementa con una plataforma de servicios de información y un contexto territorial.
+        </p>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+
+</script>
+{% endblock %}

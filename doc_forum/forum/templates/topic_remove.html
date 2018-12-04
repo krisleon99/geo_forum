@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ doc.title }} — {{ block.super }}{% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="row"><br>
+    <div class="col-md-8">
+      <form action="{% url "delete_topic" doc.id %}" method="POST">
+        <h2>
+          {% blocktrans with doc.title as doc_title %}
+            ¿Esta seguro que desea eliminar el tema: {{ doc_title }}?
+          {% endblocktrans %}
+        </h2>
+
+        <br>
+        {% csrf_token %}
+        <input type="hidden" value="{{ doc.typename }}" />
+        <div class="form-actions">
+          <input type="submit" value="Si, Eliminar" class="btn btn-danger" />
+          <a href="{{ doc.get_absolute_url }}" class="btn btn-info">{% trans "No, No Eliminar" %}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

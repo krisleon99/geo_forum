@@ -1,0 +1,167 @@
+{% extends "research_base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+
+{% block title %} Propouestas {% endblock %}
+
+
+{% block body_class %}prop{% endblock %}
+
+{% block body %}
+<!--HEADER-TITULO-->
+		<div id="page-header" class="content">
+			<div class="container">
+				<div class="titulo-blk-row">
+					<div class="titulo-img blk-cell"><img src="{{STATIC_URL}}base/img/purpose-of-saving-money_blue.png" alt=""></div>
+					<div class="titulo-txt blk-cell">
+						<h2>{{prop.title}}</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+<div class="container">
+<div class="row">
+	<div class="col-md-8" id="general">
+        <table class="table table-striped">
+            <caption class=".detail-tbl">{{ prop.call_background|safe|escape }}</caption>
+            <tr class=".detail-tbl">
+                <th class=".detail-tbl">No. Proyecto</th>
+                <th class=".detail-tbl">Monto Solicitado</th>
+                <th class=".detail-tbl">Monto Autorizado</th>
+                <th class=".detail-tbl">Transferencia</th>
+            </tr>
+            <tr class=".detail-tbl">
+                <td class=".detail-tbl">{{ prop.project }}</td>
+                <td class=".detail-tbl">{{ prop.request_amount }}</td>
+                <td class=".detail-tbl">{{ prop.authorized_amount }}</td>
+                <td class=".detail-tbl">{{ prop.transfer }}</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    Saldo Ejercido
+                </td>
+                <th>
+                    {{ saldo_ejercido }}
+                </th>
+            </tr>
+
+        </table>
+		<div style="padding: 15px 0; border-bottom: 1px dotted #CCC;">
+        <!--
+       <div>
+           {% if prop.project %}
+               <span class="agree-detail">No. Proyecto:</span>
+           {{ prop.project|safe|escape }} &nbsp;
+           {% endif %}
+           <span class="agree-detail"> Titulo:</span>   {{ prop.call_background|safe|escape }}</div>-->
+       <div><span class="agree-detail">Responsable Técnico:</span>   {{ prop.techical_responsible|safe|escape }}</div>
+       <!--<div><span class="agree-detail">Monto Solicitado:</span>  ${{ prop.request_amount|safe|escape }}</div>
+       <div><span class="agree-detail">Monto Autorizado:</span>  ${{ prop.authorized_amount|safe|escape }}</div>
+        <div> <span class="agree-detail">Transferencia:</span>   ${{ prop.transfer|safe|escape }}</div>
+        <div> <span class="agree-detail">Saldo Ejercido:</span>   ${{ saldo_ejercido|safe|escape }}</div>-->
+        <div> <span class="agree-detail">Observaciones:</span>  {{ prop.observation|safe|escape }}</div>
+        <div>  <span class="agree-detail">Fecha Inicio:</span>  {{ prop.creation_date|date:"M d, Y" }}</div>
+         {% if prop.validity_date %}
+                <div><span class="agree-detail">Fecha Fin:</span>{{ prop.validity_date|date:"M d, Y" }}</div>
+             {% if prop.validity_date <= now %}
+                <div>  <span class="agree-detail">Este proyecto ya no es vigente</span> </div>
+            {% else %}
+                 {{ listing.date|date:"d M Y" }}
+                 <div>  <span class="agree-detail">Proyecto vigente</span>   </div>
+            {% endif %}
+
+             {% else %}
+             <div><span class="agree-detail">Este proyecto no tiene fecha de Vigencia</span> </div>
+           {% endif %}
+		</div>
+
+         <h3>Descargar Documentos Asociados:</h3>
+         {% if prop.docfile_proposal %}
+             <div class="download-text">
+                <a href="{{MEDIA_URL}}{{prop.docfile_proposal}}">
+                     <img src="{{STATIC_URL}}base/img/download.svg" title="{{prop.docfile_proposal}}" class="img-docto"/>
+                </a>
+                <span class="download-title"> Propuesta:</span><span class="download-sub-title">{{ prop.proposal_name }}</span>
+             </div>
+
+         {% endif %}
+        {% if prop.docto_pro_acept %}
+             <div class="download-text">
+                <a href="{{MEDIA_URL}}{{prop.docto_pro_acept}}">
+                     <img src="{{STATIC_URL}}base/img/download.svg" title="{{prop.docto_pro_acept}}" class="img-docto"/>
+                </a>
+             <span class="download-title"> Propuesta Aceptada:</span><span class="download-sub-title">{{ prop.docto_name_pro_acept }}</span>
+             </div>
+
+         {% endif %}
+         {% if prop.docto_legal_pro %}
+             <div class="download-text">
+              <a href="{{MEDIA_URL}}{{prop.docto_legal_pro}}">
+                     <img src="{{STATIC_URL}}base/img/download.svg" title="{{prop.docto_legal_pro}}" class="img-docto"/>
+                </a>
+                  <span class="download-title">Documento Legal:</span><span class="download-sub-title">{{ prop.docto_legal_pro_name }}</span>
+             </div>
+
+         {% endif %}
+             <h3>Otros Documentos Relacionados:</h3>
+            {% for d in doctos %}
+                {% if d.docto_pro %}
+                     <div class="download-text">
+                       <a href="{{MEDIA_URL}}{{d.docto_pro}}">
+                             <img src="{{STATIC_URL}}base/img/download.svg" title="{{d.docto_pro}}" class="img-docto"/>
+                       </a>
+                          <span class="download-sub-title">{{ d.title }}</span>
+                     </div>
+
+             {% endif %}
+                {% empty %}
+                <div class="download-text"><span class="download-title">No hay otros documentos</span></div>
+        {% endfor %}
+
+	</div>
+
+	<div class="col-md-4">
+
+	<ul class="list-group">
+	<li class="list-group-item">
+	<button class="btn btn-primary btn-md btn-block" data-toggle="modal" data-target="#edit-document">Editar propuesta</button>
+	</li>
+	<li class="list-group-item">
+	<a href="{% url 'upload_proposal' %}" class="btn btn-primary btn-block" id="btn-list">Agregar una propuesta</a>
+	</li>
+	<div class="modal fade" id="edit-document" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	      <h4 class="modal-title" id="myModalLabel">Editar propuesta</h4>
+	    </div>
+	    <div class="modal-body">
+
+	      <div class="row edit-modal">
+	        <div class="col-sm-3">
+
+	          <a class="btn btn-default btn-block btn-xs" href="{% url "update_proposal" prop.id %}">Editar</a>
+			  {% if "delete_resourcebase" in perms %}
+				<a class="btn btn-danger btn-block btn-xs" href="{% url "remove_proposal" prop.id %}">Eliminar</a>
+			  {% endif %}
+			</div>
+          <a href="{% url "upload_docto_proposal" prop.id %}">
+            <img src="{{STATIC_URL}}base/img/add-documents.svg" class="img-docto"></a>
+          <span class="download-sub-title">Agregar otro documento a la propuesta</span>
+	      </div>
+	    </div>
+	    <div class="modal-footer">
+	      <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+	    </div>
+	  </div>
+	</div>
+	</div>
+
+
+
+	</ul>
+	</div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load i18n avatar_tags %}
+{% block title %} Foro {% endblock %}
+
+{% block body_class %}Foro{% endblock %}
+
+
+{% block head %}{{ block.super }}
+<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/chat_base.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/social-chat-map.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/forum.css">
+{% endblock %}
+{% block body %}
+{% if topic.is_closed %}
+  {% if topic.user.id != request.user.id %}
+    <div class="btn-add">
+      <a href="#" class="btn btn-primary pull-right" id="btn-list">Este tema esta cerrado</a>
+    </div>
+    </br></br>
+  {% endif %}
+  {% else %}
+  {% if topic.user.id != request.user.id %}
+  {% for fm in fmail%}
+              <div class="btn-add">
+                <a href="{% url 'leave_forum' fm.id %}" class="btn btn-primary pull-right" id="btn-list" title="Dejar de recibir correos de este Tema">Suscrito</a>
+              </div>
+              </br></br>
+              {% empty %}
+                  <div class="btn-add">
+                    <a href="{% url 'follow_forum' topic.id %}" class="btn btn-primary pull-right" id="btn-list" title="Recibirás correos de este Tema">Suscribete</a>
+                  </div>
+                  </br></br>
+    {% endfor %}
+
+  {% endif %}
+{% endif %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+      <div class="down-title">
+        <i class="fa fa-comments-o"></i>
+        <h3>Foro</h3>
+        {% if topic.user.id == request.user.id %}
+            <div class="dropdown">
+                <i class="fa fa-cogs" id="right-settings" title="Opciones" aria-hidden="true" data-toggle="dropdown"></i>
+                <ul class="dropdown-menu">
+                  {% if topic.is_closed %}
+                  <a href="#">
+                    <i class="fa fa-unlock" title="Abrir tema" id="open_topic" id-topic="{{topic.id}}" aria-hidden="true">Abrir tema</i>
+                  </a>
+                  {% else %}
+                  <a href="#">
+                    <i class="fa fa-lock" title="Cerrar tema" id="close_topic" id-topic="{{topic.id}}" aria-hidden="true">Cerrar tema</i>
+                  </a>
+                  {% endif %}
+                  <a href="{% url 'update_topic' topic.id %}">
+                    <i class="fa fa-pencil" title="Editar tema" aria-hidden="true">Editar tema</i>
+                  </a>
+                  <a href="{% url 'delete_topic' topic.id %}">
+                    <i class="fa fa-trash-o" title="Eliminar tema" aria-hidden="true">Eliminar tema</i>
+                  </a>
+                </ul>
+            </div>
+        {% endif %}
+        <!-- <div class="return-forum"> -->
+          <a href="{% url "forum.views.forum_web" %}" title="Regresar" class="return-forum"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+          <!-- </div> -->
+      </div>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+	<!-- <div class="btn-add">
+    <a href="{% url "upload_topic" %}" class="btn btn-primary pull-right" id="btn-list">Agregar un Tema</a>
+    </div> -->
+    <div class="table-responsive">
+    <table class="table table-striped" width="100%">
+        <thead>
+            <tr width="50%">
+                 <th class="agree-detail">{{topic}}<a href="{% url 'update_topic' topic.id %}">
+                   {% if topic.user.id == request.user.id %}<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar tema"></i>{% endif %}
+               </a> </th>
+                 <th class="agree-detail">
+                      {{topic.comment}}
+                 </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for wp in forum %}
+            <tr>
+              <td width="30%">
+                    <div class="chat_user"><img src="{{STATIC_URL}}avatar/img/default-avatar.jpg" class="avatar_comment" alt="No avatar" />
+                        <span class="user_comments"> {{ wp.user }} </span>
+                        <span class="date_comments">{{ wp.creation_date|date:"l j, F, Y P" }}</span>
+                    </div>
+            </td>
+                <td width="70%">
+                    <div class="forum-comment" id="forum_{{wp.id}}">{{wp.comment}}</div>
+                  {% if request.user.is_authenticated %}
+                          <div class="chat-main">
+                            {% if request.user.id == wp.user.id %}
+                              <span class="icons-forum">
+                                <a href="{% url 'delete_forum' wp.id topic.id %}">
+                                  <i class="fa fa-trash" title="Eliminar comentario" aria-hidden="true"></i>
+                                </a>
+                              </span>
+                              <span class="icons-forum">
+                                <a href="{% url 'update_forum' wp.id topic.id %}">
+                                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                </a>
+                              </span>
+                              {% endif %}
+                              <span class="icons-forum">
+                                <span class="like-chat" id="like_{{wp.id}}" data_count_like="1">
+                                  <i class="fa fa-heart" title="Me gusta" aria-hidden="true"><span class="count_like_{{wp.id}}">1</span></i>
+                                </span>
+                              </span>
+                          </div>
+                  {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" class="text-center">Comienza a comentar</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+    </div>
+  </br>
+
+  {% if topic.is_closed %}
+  <div class="enabled_log">
+    <a href="#"  role="button" id="admin-login2" class="btn"><i class="fa fa-user" aria-hidden="true"></i> Este tema esta cerrado. </a>
+  </div>
+{% else %}
+      {% if request.user.is_authenticated %}
+          <img src="{{STATIC_URL}}avatar/img/default-avatar.jpg" class="avatar_comment" alt="No avatar" />
+          <span class="user_comments">{{ request.user.username }}</span>
+          <div class="chat_user">
+           <form id="formulario_forum" class="form_forum" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+             <textarea style="height: 70px;" cols="40" name="comment" id="comment" onkeyup="Textarea_Sin_Enter(event.keyCode, event.which, 'comment');"></textarea>
+             {{ formulario.timestamp }}
+             <input type="hidden" name="user_fb" id="user_fb" />
+             <input type="hidden" name="id_chat_comment" id="id_chat_comment" />
+             <input type="submit" class="btn btn-primary-chat" value="Confirmar">
+           </form>
+          </div>
+          {% else %}
+              <div class="enabled_face">
+                <div class="fb-login-button" id="fb-login-chat-inner" data-max-rows="1" data-size="medium" data-button-type="login_with" data-show-faces="true" data-auto-logout-link="true" data-use-continue-as="true"></div>
+              </div>
+              <div class="enabled_log">
+                <a href="{% url 'home_page' %}"  role="button" id="admin-login2" class="btn"><i class="fa fa-user" aria-hidden="true"></i> Para hacer comentarios debes iniciar seción </a>
+              </div>
+      {% endif %}
+{% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{% include "forum.js" %}
+{% endblock %}

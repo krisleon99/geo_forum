@@ -1,0 +1,61 @@
+/*sHARE MAP
+*/
+.start-chat{
+	background-color: #e9ebee;
+	height: 100px;
+  width: 500px;
+}
+/*Chats disaing
+*/
+.body_chats{
+	 width: 310px;
+   text-align: justify;
+   font-size: 14px;
+   margin-left: 20px;
+   margin-top: -20px;
+}
+/*Scrolle bar
+*/
+  .scrollbar_chat
+  {
+    margin-bottom: 20px;
+  	margin-left: 3px;
+	  float: left;
+	  margin-top: 6px;
+    float: left;
+    min-height: 10px;
+    max-height: 490px;
+    height: auto;
+    width: 385px;
+	  overflow-y: scroll;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: #ddd;
+    overflow-x: hidden;
+  }
+
+  .force-overflow
+  {
+  	min-height: 10px;
+  }
+
+  #style-5::-webkit-scrollbar-track
+  {
+  	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  	/*background-color: #F5F5F5;*/
+  }
+
+  #style-5::-webkit-scrollbar
+  {
+  	width: 5px;
+  	/*background-color: #F5F5F5;*/
+  }
+
+  #style-5::-webkit-scrollbar-thumb
+  {
+  	background-color: #0ae;
+
+  	background-image: -webkit-gradient(linear, 0 0, 0 100%,
+  	                   color-stop(.5, rgba(255, 255, 255, .2)),
+  					   color-stop(.5, transparent), to(transparent));
+  }

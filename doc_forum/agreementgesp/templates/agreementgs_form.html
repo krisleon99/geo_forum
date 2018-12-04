@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_tags %}
+
+{% block title %} Convenio {% endblock %}
+
+{% block extra_head %}
+  <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.css">-->
+  <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.css">-->
+  <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.js"></script>-->
+  {{ form.media }}
+{% endblock %}
+{% block body_class %}Convenio{% endblock %}
+
+{% block body %}
+<div class="span12">
+  <div class="widget ">
+    <div class="widget-header">
+        <i class="icon-list-alt"></i>
+        <h3>Agregar Documento</h3>
+    </div> <!-- /widget-header -->
+    <div class="widget-content">
+    	<form id="formulario" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+			{{ formulario.media }}
+			{{formulario|as_bootstrap}}
+			<p><input type="submit" class="btn btn-primary" value="Confirmar"></p>
+		</form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block extra_script %}
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+    $( "#id_start_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: "yy-mm-dd"
+    });
+    $( "#id_end_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: "yy-mm-dd"
+    });
+  } );
+</script>
+{% endblock extra_script %}
