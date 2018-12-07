@@ -12,8 +12,10 @@
 <meta property="og:title"              content="Foro 2018" />
 <meta property="og:description"        content="Foro – 2018 - CentroGeo CONACYT" />
 <meta property="og:image"              content="https://www.centrogeo.org.mx/images/stories/pages/docencia/formacion-a-distancia/diplomado/banner_diplomado.jpg" />
-<link href="{{ STATIC_URL }}base2/css/bootstrap.min.css" rel="stylesheet">
-<link href="{{ STATIC_URL }}base2/css/bootstrap-responsive.min.css" rel="stylesheet">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
         rel="stylesheet">
 <link href="{{ STATIC_URL }}base2/css/font-awesome.css" rel="stylesheet">
@@ -34,18 +36,23 @@
 </head>
 <body class="{% block body_class %}{% endblock %}">
 {% block header %}
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a href="https://www.centrogeo.org.mx/">
-        <img src="{{STATIC_URL}}base/img/header_logo-centrogeo.png" alt="CentroGeo" style="float: left; margin: 2px 10px;" title="CentroGeo">
-      </a>
-      <h1>
-      Centro de Investigación en
-Ciencias de Información Geoespacial
-</h1>
-      <!-- <img src="{{STATIC_URL}}forum/img/Logo_RTMG.png" alt="RTMG" style="float: left; margin: 2px 10px; width: 150px; height: 80px;" title="RTMG"> -->
-      <!-- <img src="{{STATIC_URL}}base2/img/CENTROGE_LOGO_NUEVO_BLANCO.png" alt="" style="float: right; margin: 2px 10px;" title="CentroGeo"> -->
+    <div class="container" id="headerin">
+      <div class="row mt-5">
+        <div class="col-1 col-md-1 col-lg-1">
+          <a href="https://www.conacyt.gob.mx/">
+            <img src="{{STATIC_URL}}base/img/logo-conacyt.png" alt="Conacyt" title="Conacyt">
+          </a>
+        </div>
+        <div class="col-11 text-right col-md-10 text-md-center col-lg-10 text-lg-center">
+          <h3>Centro de Investigación en
+          Ciencias de Información Geoespacial</h3>
+        </div>
+        <span class="col-12 col-md-1 col-lg-1">
+          <a href="https://www.centrogeo.org.mx/">
+            <img src="{{STATIC_URL}}base/img/header_logo-centrogeo.png" alt="CentroGeo" title="CentroGeo">
+          </a>
+        </span>
+      </div>
       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -56,12 +63,23 @@ Ciencias de Información Geoespacial
                       Módulo de gestión de documentos del proyecto RTMG
           </a>
         </div> -->
-
-    </div>
-    <!-- /container -->
   </div>
-  <!-- /navbar-inner -->
-</div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+          <div class="shadow">
+            <hr></hr>
+          </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-12 text-center" id="mosaico">
+              <h4>Foro</h4>
+            <img src="{{STATIC_URL}}base2/img/xtc-area-intro_mosaico.png" height="60px;" width="100%;" alt="header" title="header">
+      </div>
+    </div>
+  </div>
 <!-- /navbar -->
 <div class="subnavbar">
   <div class="subnavbar-inner">
@@ -70,16 +88,15 @@ Ciencias de Información Geoespacial
       <div class="nav-collapse">
         {% if user.is_authenticated %}
         <ul class="nav pull-right" style="margin-top: 10px;">
-          <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-            class="icon-cog"></i> Configuración <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="{% url 'manager.views.nuevo_usuario' %}">Registrar Usuarios</a></li>
-            </ul>
-          </li>
+        
           <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
             class="icon-user"></i> {{ user.username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><a href="{% url 'manager.views.user_detail' user.id %}">perfil</a></li>
+              {% if "add_user" in perms %}
+              <li><a href="{% url 'manager.views.nuevo_usuario' %}">Registrar Usuarios</a></li>
+              {% endif %}
+
               {% if user.username in 'kris' %}
                   <li><a href="{% url 'fmail.views.start_stop_thread' %}?stop=start">Start Tread</a></li>
                   <li><a href="{% url 'test_email' %}">Test Email</a></li>
@@ -113,10 +130,12 @@ Ciencias de Información Geoespacial
       <!--/.nav-collapse -->
       <ul class="mainnav">
         <li class="{% if 'home' in request.get_full_path %}active{%endif%}"><a href="https://www.centrogeo.org.mx/"><i class="fa fa-home"></i><span>CentroGeo</span> </a> </li>
-        <!-- <li class="{% if 'agreementgesp' in request.get_full_path %}active{%endif%}"><a href="{% url 'agreementgesp.views.list_agreementgesp' %}"><i class="icon-list-alt"></i><span>Documentos</span> </a> </li>
-        <li class="{% if 'upload_document' in request.get_full_path %}active{%endif%}"><a href="{% url 'doctos.views.upload_document' %}"><i class="fa fa-file-text"></i><span>Agregar Documentos</span> </a> </li> -->
+         <!-- <li class="{% if 'agreementgesp' in request.get_full_path %}active{%endif%}"><a href="{% url 'agreementgesp.views.list_agreementgesp' %}"><i class="icon-list-alt"></i><span>Documentos</span> </a> </li>
+        <li class="{% if 'upload_document' in request.get_full_path %}active{%endif%}"><a href="{% url 'doctos.views.upload_document' %}"><i class="fa fa-file-text"></i><span>Agregar Documentos</span> </a> </li>  -->
         <li class="{% if 'forum_web' in request.get_full_path %}active{%endif%}"><a href="{% url 'forum.views.forum_web' %}"><i class="fa fa-comments-o"></i><span>Foro</span> </a> </li>
-        <!-- <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li> -->
+          {% if "add_user" in perms %}
+              <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li>
+           {% endif %}
       </ul>
     </div>
     <!-- /container -->
@@ -150,7 +169,7 @@ Ciencias de Información Geoespacial
   <div class="footer-inner">
     <div class="container">
       <div class="row">
-        <div class="span12">Centro de investigación en ciencias de la información geoespacial. <a href="http://www.centrogeo.org.mx/">CentroGeo</a>. &copy; 2017</div>
+        <div class="span12">Centro de investigación en ciencias de la información geoespacial. <a href="http://www.centrogeo.org.mx/">CentroGeo</a>. &copy; 2018</div>
         <!-- /span12 -->
       </div>
       <!-- /row -->
@@ -166,7 +185,7 @@ Ciencias de Información Geoespacial
 <script src="{{ STATIC_URL }}base2/js/jquery-1.7.2.min.js"></script>
 <script src="{{ STATIC_URL }}base2/js/excanvas.min.js"></script>
 <script src="{{ STATIC_URL }}base2/js/chart.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}base2/js/bootstrap.js"></script>
+<!-- <script src="{{ STATIC_URL }}base2/js/bootstrap.js"></script> -->
 <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}base2/js/full-calendar/fullcalendar.min.js"></script>
 <script src="{{ STATIC_URL }}base2/js/base.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-1.10.2.js"></script> -->

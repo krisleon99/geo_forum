@@ -11,13 +11,13 @@
   <div class="widget ">
     <div class="widget-header">
         <i class="icon-user"></i>
-        <h3>Editar Usuario</h3>
+        <h3>Editar usuario</h3>
     </div> <!-- /widget-header -->
     <div class="widget-content">
       {% if formulario %}
 			<form id="formulario" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
 				{{formulario|as_bootstrap}}
-				<p><input type="submit" class="btn btn-primary" value="Confirmar"></p>
+				<p><input type="submit" class="btn btn-primary orange" value="Confirmar"></p>
 			</form>
       {% else %}
           El usuario no tiene permiso para realizar esta acción.

@@ -12,13 +12,13 @@
   <div class="widget ">
     <div class="widget-header">
         <i class="fa fa-university"></i>
-        <h3>Agregar Tema</h3>
+        <h3>Agregar tema</h3>
     </div> <!-- /widget-header -->
     <div class="widget-content">
 		<form id="formulario" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
 			{{ formulario.media }}
 			{{formulario|as_bootstrap}}
-			<p><input type="submit" class="btn btn-primary" style="background-color: #DC7828;" value="Confirmar"></p>
+			<p><input type="submit" class="btn btn-primary orange" value="Confirmar"></p>
 		</form>
     </div>
   </div>

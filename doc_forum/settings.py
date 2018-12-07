@@ -26,8 +26,6 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -200,11 +198,11 @@ ACCOUNT_APPROVAL_REQUIRED = False
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'rtmgsuport@gmail.com'
-EMAIL_HOST_PASSWORD = 'HolaHola'
+EMAIL_HOST_PASSWORD = 'esteCorreoEsParaCentroGeo'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'rtmg.webmaster@centrogeo.edu.mx'
+DEFAULT_FROM_EMAIL = 'chokokriss97@gmail.com'
 
 # Email for users to contact admins.
-THEME_ACCOUNT_CONTACT_EMAIL = 'rtmg.webmaster@centrogeo.edu.mx'
+THEME_ACCOUNT_CONTACT_EMAIL = 'chokokriss97@gmail.com'

@@ -9,12 +9,43 @@ Bootstrap Admin Template by EGrappler.com
 */
 
 body {
-	background: #f9f6f1;
+	background: white;
 	font: 13px/1.7em 'Open Sans';
 }
 
 p {
 	font: 13px/1.7em 'Open Sans';
+}
+a{
+	color: #DC7828;
+}
+a:hover{
+	color: #af5b18;
+}
+.orange{
+	color: #fff;
+	background-color: #DC7828;
+	border-color: #af5b18;
+}
+.orange:hover{
+	background-color: #fff;
+	border-color: #af5b18;
+	color: #DC7828;
+}
+.orange:focus{
+	background-color: #ef6b02;
+	border-color: #af5b18;
+	color: #000;
+}
+.orange:active{
+	background-color: #ef6b02;
+	border-color: #af5b18;
+	color: #000;
+}
+.orange:visited{
+	background-color: #ef6b02;
+	border-color: #af5b18;
+	color: #000;
 }
 
 input,
@@ -23,7 +54,26 @@ select,
 textarea {
   font-family: 'Open Sans';
 }
-
+#mosaico {
+   	width: 100%
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.6em;
+    color: #000;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.26);
+    background-position: center bottom;
+    background-repeat: repeat-x;
+    /* background-color: #ECF0F1; */
+    background-color: #FFFFFF;
+    -webkit-transition: padding-top 0.2s ease-out;
+    -moz-transition: padding-top 0.2s ease-out;
+    -ms-transition: padding-top 0.2s ease-out;
+    -o-transition: padding-top 0.2s ease-out;
+    transition: padding-top 0.2s ease-out;
+}
+.shadow{
+  box-shadow: 10px 10px 5px grey;
+}
 .dropdown .dropdown-menu {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
@@ -325,14 +375,14 @@ textarea {
     width: 100%;
 	margin-top: 0;
 	z-index: 999;
-	border-top: 1px solid #8BC9EA;
+	border-top: 1px solid #DC7828;
 }
 
 .footer-inner {
 	padding: 15px 0;
 
 	font-size: 12px;
-	background: #CCCCD0;
+	background: #222222;
 	color: #999;
 }
 
@@ -1391,4 +1441,7 @@ select {
 
 #big_stats a:hover {
 	text-decoration: none;
+}
+#headerin{
+	margin-top: 20px;
 }

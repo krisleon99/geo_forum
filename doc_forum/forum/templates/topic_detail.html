@@ -16,7 +16,7 @@
 {% if topic.is_closed %}
   {% if topic.user.id != request.user.id %}
     <div class="btn-add">
-      <a href="#" class="btn btn-primary pull-right" id="btn-list">Este tema esta cerrado</a>
+      <a href="#" class="btn btn-primary pull-right orange" id="btn-list">Este tema esta cerrado</a>
     </div>
     </br></br>
   {% endif %}
@@ -24,12 +24,12 @@
   {% if topic.user.id != request.user.id %}
   {% for fm in fmail%}
               <div class="btn-add">
-                <a href="{% url 'leave_forum' fm.id %}" class="btn btn-primary pull-right" id="btn-list" title="Dejar de recibir correos de este Tema">Suscrito</a>
+                <a href="{% url 'leave_forum' fm.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Dejar de recibir correos de este Tema">Suscrito</a>
               </div>
               </br></br>
               {% empty %}
                   <div class="btn-add">
-                    <a href="{% url 'follow_forum' topic.id %}" class="btn btn-primary pull-right" id="btn-list" title="Recibirás correos de este Tema">Suscribete</a>
+                    <a href="{% url 'follow_forum' topic.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Recibirás correos de este Tema">Suscribete</a>
                   </div>
                   </br></br>
     {% endfor %}
@@ -145,7 +145,7 @@
              {{ formulario.timestamp }}
              <input type="hidden" name="user_fb" id="user_fb" />
              <input type="hidden" name="id_chat_comment" id="id_chat_comment" />
-             <input type="submit" class="btn btn-primary-chat" value="Confirmar">
+             <input type="submit" class="btn btn-primary orange" value="Confirmar">
            </form>
           </div>
           {% else %}
