@@ -197,12 +197,12 @@ ACCOUNT_APPROVAL_REQUIRED = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'rtmgsuport@gmail.com'
-EMAIL_HOST_PASSWORD = 'esteCorreoEsParaCentroGeo'
+EMAIL_HOST_USER = 'admin.idegeo@centrogeo.edu.mx'
+EMAIL_HOST_PASSWORD = '1d3g3015'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'chokokriss97@gmail.com'
+DEFAULT_FROM_EMAIL = 'admin.idegeo@centrogeo.edu.mx'
 
 # Email for users to contact admins.
-THEME_ACCOUNT_CONTACT_EMAIL = 'chokokriss97@gmail.com'
+THEME_ACCOUNT_CONTACT_EMAIL = 'admin.idegeo@centrogeo.edu.mx'

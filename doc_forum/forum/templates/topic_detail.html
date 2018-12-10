@@ -141,11 +141,11 @@
           <span class="user_comments">{{ request.user.username }}</span>
           <div class="chat_user">
            <form id="formulario_forum" class="form_forum" method="post" enctype="multipart/form-data" action="">{% csrf_token %}
-             <textarea style="height: 70px;" cols="40" name="comment" id="comment" onkeyup="Textarea_Sin_Enter(event.keyCode, event.which, 'comment');"></textarea>
+             <textarea style="height: 70px; width=1190px;" cols="41" name="comment" id="comment" onkeyup="Textarea_Sin_Enter(event.keyCode, event.which, 'comment');"></textarea>
              {{ formulario.timestamp }}
              <input type="hidden" name="user_fb" id="user_fb" />
              <input type="hidden" name="id_chat_comment" id="id_chat_comment" />
-             <input type="submit" class="btn btn-primary orange" value="Confirmar">
+             <input type="submit" class="btn btn-primary orange btn-block" value="Confirmar">
            </form>
           </div>
           {% else %}

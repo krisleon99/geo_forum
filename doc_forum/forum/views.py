@@ -20,6 +20,8 @@ from doc_forum.doctos.models import Document
 from doc_forum.fmail.models import SendFmail
 from doc_forum.fmail.views import save_fmail, build_token_f, locate_object_f
 
+
+@login_required(login_url='/manager/ingresar')
 def forum_web(request):
     topics = Topic.objects.all()
     return render_to_response('topics_index.html',{'topics':topics, 'SITE_URL': Site.objects.get_current()}, context_instance=RequestContext(request))
