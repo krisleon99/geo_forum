@@ -23,14 +23,14 @@ a:hover{
 	color: #af5b18;
 }
 .orange{
-	color: #fff;
+	color: #fff !important;
 	background-color: #DC7828;
 	border-color: #af5b18;
 }
 .orange:hover{
 	background-color: #fff;
 	border-color: #af5b18;
-	color: #DC7828;
+	color: #DC7828 !important;
 }
 .orange:focus{
 	background-color: #ef6b02;
