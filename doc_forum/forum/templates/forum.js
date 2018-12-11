@@ -15,6 +15,10 @@ $(document).ready(function(){
   repl=repl.replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/");
   p.html(repl);
 
+  var repl_arroba = repl.replace(/(^|\W)(@[a-z\d][\w-]*)/ig, '$1<a href="https://twitter.com/$2" target="_blank">$2</a>');
+  repl_arroba=repl_arroba.replace("/@","/").replace("/@","/").replace("/@","/").replace("/@","/").replace("/@","/").replace("/@","/").replace("/@","/").replace("/@","/");
+  p.html(repl_arroba);
+
 {% endfor %}
   //End hashtag of forum comments
   //This code is for likes of forum comments

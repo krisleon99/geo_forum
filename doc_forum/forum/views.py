@@ -194,7 +194,7 @@ def close_topic(request):
         return HttpResponse("Solo Ajax")
 
 @login_required(login_url='/manager/ingresar')
-@permission_required('appointment.delete_topic')
+# @permission_required('institution.change_institution')
 def delete_topic(request, id_topic, template='topic_remove.html'):
     try:
         doc = get_object_or_404(Topic, id=id_topic)
