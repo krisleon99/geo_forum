@@ -46,8 +46,8 @@
     <thead>
         <tr>
             <th data-field="title" data-filter-control="input" data-sortable="true" data-visible="true">Tema</th>
-            <th data-field="is_closed" data-filter-control="select" data-sortable="true" data-visible="true">Estatus</th>
-            <th data-field="author" data-filter-control="input" data-sortable="true" data-visible="false">Autor</th>
+            <th data-field="author" data-filter-control="input" data-sortable="true" data-visible="true">Autor</th>
+            <th data-field="is_closed" data-filter-control="select" data-sortable="true" data-visible="false">Estatus</th>
             <th data-field="creation_date" data-sortable="true" data-filter-control="select" data-visible="false">Fecha</th>
         </tr>
     </thead>
@@ -59,8 +59,8 @@
                {{wp.title}}
              </a>
              </td>
-             <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
              <td>{{ wp.user.first_name }} {{ wp.user.last_name }} </td>
+             <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
              <td>
                <span>{{ wp.creation_date|date:"l j, F, Y" }}</span>
              </td>
