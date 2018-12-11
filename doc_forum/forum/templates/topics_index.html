@@ -4,61 +4,164 @@
 {% block title %} Foro {% endblock %}
 
 {% block body_class %}Foro{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+<link rel='stylesheet prefetch' href='//rawgit.com/vitalets/x-editable/master/dist/bootstrap3-editable/css/bootstrap-editable.css'>
+<style>
+.bold-blue {
+    font-weight: bold;
+    color: #00ba8b;
+}
+</style>
+{% endblock %}
 
 {% block body %}
-<!-- <div class="alert alert-warning alert-dismissible">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Success!</strong> This alert box could indicate<a href="#" class="alert-link">...</a> a successful or positive action.
-  </div> -->
 <div class="span12">
   <div class="widget ">
     <div class="widget-header">
-        <i class="fa fa-university"></i>
-        <h3>Foro</h3>
+      <i class="icon-list-alt"></i>
+        <h3>Temas</h3>
+        <span>
+            <a href="{% url "upload_topic" %}" >
+                <i class="fa fa-arrows" aria-hidden="true"></i> Nuevo tema
+            </a>
+        </span>
     </div> <!-- /widget-header -->
     <div class="widget-content">
-	<div class="btn-add">
-    <a href="{% url "upload_topic" %}" class="btn btn-primary pull-right orange" id="btn-list">Agregar un tema</a>
-    </div>
-    <div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                 <th class="agree-detail">Nombre </th>
-                 <th class="agree-detail">Fecha </th>
-                  <th class="agree-detail">Estatus </th>
-                 <th class="agree-detail">Usuario que lo creo</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for wp in topics %}
-            <tr>
-                <td>
-                  <!-- <a href="{% url 'update_topic' wp.id %}">
-                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </a> -->
-                <a href="{% url 'view_topic' wp.id %}">
-                  {{wp.title|truncatechars:60}}
-                </a>
-                </td>
-                <td>
-                  <span>{{ wp.creation_date|date:"l j, F, Y" }}</span>
-                </td>
-                <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
-                <td>{{ wp.user.first_name }} {{ wp.user.last_name }} </td>
-            </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="2" class="text-center">No hay Temas</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    </div>
+<table id="table"
+             data-toggle="table"
+             data-classes="table table-no-bordered"
+             data-filter-control="true"
+             data-show-export="true"
+             data-click-to-select="true"
+             data-toolbar="#toolbar"
+             data-show-toggle="true"
+             data-show-columns="true"
+             data-pagination="true"
+             data-page-size="10"
+             data-show-pagination-switch="true"
+             data-page-list="[5, 10, 25, 50, 100, ALL]"
+             data-sort-name="title"
+             data-sort-order="desc">
+    <thead>
+        <tr>
+            <th data-field="title" data-filter-control="input" data-sortable="true" data-visible="true">Tema</th>
+            <th data-field="is_closed" data-filter-control="select" data-sortable="true" data-visible="true">Estatus</th>
+            <th data-field="author" data-filter-control="input" data-sortable="true" data-visible="false">Autor</th>
+            <th data-field="creation_date" data-sortable="true" data-filter-control="select" data-visible="false">Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for wp in topics %}
+        <tr>
+          <td>
+             <a href="{% url 'view_topic' wp.id %}">
+               {{wp.title}}
+             </a>
+             </td>
+             <td>{% if wp.is_closed %} (Cerrado) {% else %} (Abierto) {% endif %} </td>
+             <td>{{ wp.user.first_name }} {{ wp.user.last_name }} </td>
+             <td>
+               <span>{{ wp.creation_date|date:"l j, F, Y" }}</span>
+             </td>
+        </tr>
+        {% empty %}
+               <tr>
+                   <td colspan="2" class="text-center">No hay Temas</td>
+               </tr>
+    {% endfor %}
+    </tbody>
+</table>
     </div>
   </div>
-
+</div>
 {% endblock %}
 
 {% block extra_script %}
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/editable/bootstrap-table-editable.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.js'></script>
+<script src='//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/filter-control/bootstrap-table-filter-control.js'></script>
+<script type="text/javascript">
+    var $table = $('#table');
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+    var title = getUrlParameter('title');
+    console.log("*********************");
+    console.log(title);
+    $(window).load(function() {
+        if (typeof title  !== "undefined") {
+          console.log(title);
+            $table.bootstrapTable('filterBy', {
+                title:title
+            });
+        }
+    });
+    function responseHandler(res) {
+      //alert(res.totalElements + "-" + res.number + "-" + res.size);
+      return {
+        rows: res.content,
+        total: res.totalElements,
+        pageNumber: res.number,
+        pageSize: res.size
+      }
+    }
+
+    // function totalTextFormatter(data) {
+    //   return 'Total';
+    // }
+    function sumFormatter(data) {
+        field = this.field;
+        var total_sum = data.reduce(function(sum, row) {
+            return (sum) + (parseFloat(row[field]) || 0);
+        }, 0);
+        var value = total_sum;
+        var num = '$' + value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+        return num;
+    }
+</script>
+<script type="text/javascript">
+(function ($) {
+    'use strict';
+
+    $.fn.bootstrapTable.locales['es-MX'] = {
+        formatLoadingMessage: function () {
+            return 'Cargando, espere por favor...';
+        },
+        formatRecordsPerPage: function (pageNumber) {
+            return pageNumber + ' registros por página';
+        },
+        formatShowingRows: function (pageFrom, pageTo, totalRows) {
+            return 'Mostrando ' + pageFrom + ' a ' + pageTo + ' de ' + totalRows + ' filas';
+        },
+        formatSearch: function () {
+            return 'Buscar';
+        },
+        formatNoMatches: function () {
+            return 'No se encontraron registros';
+        },
+        formatAllRows: function () {
+            return 'Todo';
+        }
+    };
+
+    $.extend($.fn.bootstrapTable.defaults, $.fn.bootstrapTable.locales['es-MX']);
+
+})(jQuery);
+</script>
 {% endblock %}

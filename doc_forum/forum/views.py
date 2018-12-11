@@ -1,6 +1,6 @@
 import json
 
-
+# Django
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotAllowed, HttpResponseServerError
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -11,20 +11,39 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
 from django.utils import timezone
-
 from django.core import serializers
 
-from doc_forum.forum.forms import Topic_Form, Topic_Update, Topic_Save, Forum_Form, Forum_Save, LikeChatForm
+# models
 from doc_forum.forum.models import Topic, Forum, ForumLike
 from doc_forum.doctos.models import Document
 from doc_forum.fmail.models import SendFmail
+
+# forms
+from doc_forum.forum.forms import Topic_Form, Topic_Update, Topic_Save, Forum_Form, Forum_Save, LikeChatForm
+
+# viess
 from doc_forum.fmail.views import save_fmail, build_token_f, locate_object_f
+
+# fmail
+from doc_forum.fmail.Temporizador import Temporizador
+
+# python
+from time import sleep
 
 
 @login_required(login_url='/manager/ingresar')
 def forum_web(request):
-    topics = Topic.objects.all()
-    return render_to_response('topics_index.html',{'topics':topics, 'SITE_URL': Site.objects.get_current()}, context_instance=RequestContext(request))
+    try:
+        topics = Topic.objects.all()
+        return render_to_response('topics_index.html',{'topics':topics, 'SITE_URL': Site.objects.get_current()}, context_instance=RequestContext(request))
+        t = Temporizador('07:00:00',1,forum_web)# Instanciamos nuestra clase Temporizador
+        t.start() #Iniciamos el hilo
+        sleep(2)
+        for _ in range(10):
+            print('Imprimiendo desde hilo principal')
+            sleep(2)
+    except Topic.DoesNotExist:
+        return render_to_response('topics_index.html',{'topics':topics, 'SITE_URL': Site.objects.get_current()}, context_instance=RequestContext(request))
 
 @login_required(login_url='/manager/ingresar')
 # @permission_required('institution.add_institution')

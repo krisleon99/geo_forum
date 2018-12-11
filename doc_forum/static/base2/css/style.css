@@ -23,14 +23,14 @@ a:hover{
 	color: #af5b18;
 }
 .orange{
-	color: #fff !important;
-	background-color: #DC7828 !important;;
-	border-color: #af5b18 !important;;
-}
-.orange:hover, .orange:focus, .orange:active, .orange:visited {
 	background-color: #fff !important;
 	border-color: #DC7828 !important;
 	color: #DC7828 !important;
+}
+.orange:hover, .orange:focus, .orange:active, .orange:visited {
+	background-color: #DC7828 !important;;
+	border-color: #af5b18 !important;;
+	color: #fff !important;
 }
 
 input,
@@ -40,13 +40,18 @@ textarea {
   font-family: 'Open Sans';
 	outline-color: #DC7828;
 }
+
 #mosaico {
-   	width: 100%
+  	/* margin-top: -18px; */
+		padding-top: 2px;
+   	width: 100%;
     font-size: 18px;
     font-weight: 400;
     line-height: 1.6em;
     color: #000;
     border-bottom: 1px dotted rgba(0, 0, 0, 0.26);
+
+    background-image: url(/static/base2/img/xtc-area-intro_mosaico.png);
     background-position: center bottom;
     background-repeat: repeat-x;
     /* background-color: #ECF0F1; */
@@ -423,7 +428,7 @@ textarea {
 }
 
 	.widget-header h3 {
-
+    margin-top: -10px;
 		position: relative;
 		top: 2px;
 		left: 10px;
