@@ -39,12 +39,12 @@
 {% block header %}
     <div class="container" id="headerin">
       <div class="row mt-5">
-        <div class="col-1 col-md-1 col-lg-1">
+        <div class="col-1 col-md-1 col-lg-1" id="conacyt-header">
           <a href="https://www.conacyt.gob.mx/">
             <img src="{{STATIC_URL}}base/img/logo-conacyt.png" alt="Conacyt" title="Conacyt">
           </a>
         </div>
-        <div class="col-11 text-right col-md-10 text-md-center col-lg-10 text-lg-center">
+        <div class="col-11 text-right col-md-10 text-md-center col-lg-10 text-lg-center" id="title-header">
           <h3>Centro de Investigación en
           Ciencias de Información Geoespacial</h3>
         </div>
@@ -54,16 +54,12 @@
           </a>
         </span>
       </div>
-      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <!-- <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </a>
-      <!-- <div class="header-title">
-        <a class="brand" href="{% url 'manager.views.agreement_and_proposal' %}">
-                      Módulo de gestión de documentos del proyecto RTMG
-          </a>
-        </div> -->
+      </a> -->
+
   </div>
   <div class="container-fluid">
     <!-- <div class="row">

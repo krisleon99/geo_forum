@@ -55,10 +55,13 @@ $('#close_topic').click(function(){
 	close_topic(id_topic,true);
 
 });
+
+
 //getId topic
 function get_id_topic(){
   return id_topic;
 }
+
 function save_like(like, count_likes, count_like){
   	 query_data = {
         'id_forum': like,
@@ -129,4 +132,16 @@ function Textarea_Sin_Enter($char, $mozChar, $id){
    $textarea.value = $textarea.value.slice(0,-2);
  }
 }
+function load(){
+  let text = document.getElementById('comment').value
+  if(!text){
+    location.reload()
+  }
+}
+/**metodo para mandar a llamar al reload de javascript,
+en el primer parametro se le pasa el metodo
+en el segundo parametro se le pasa el tiempo que tarda en llamarlo en milisegundos**/
+let timer = setInterval('(`${load()}`)', 50000)
+//Un focus en el text area para que me mande hasta el ultimo comentario
+document.getElementById('comment').focus()
 </script>

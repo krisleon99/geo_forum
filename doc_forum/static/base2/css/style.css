@@ -42,7 +42,10 @@ textarea {
 }
 
 #mosaico {
-  	/* margin-top: -18px; */
+	  margin-top: 10px;
+	  border-top: solid 1px;
+	  border-color: #ccc;
+		box-shadow: 10px 10px 5px grey;
 		padding-top: 2px;
    	width: 100%;
     font-size: 18px;
@@ -1440,5 +1443,15 @@ select {
   .date_comments{
     display: none;
   }
- 
+
+
+}
+@media screen and (max-width: 500px){
+	#conacyt-header{
+		display: none;
+	}
+}
+@media screen and (max-width: 767px){
+.forum-comment{
+    white-space: normal !important;
 }

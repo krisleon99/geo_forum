@@ -8,33 +8,33 @@
 
 
 {% block head %}{{ block.super }}
-<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/chat_base.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/social-chat-map.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}forum/css/forum.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}forum/css/chat_base.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}forum/css/social-chat-map.css">
+  <link rel="stylesheet" href="{{ STATIC_URL }}forum/css/forum.css">
 {% endblock %}
+
 {% block body %}
 {% if topic.is_closed %}
   {% if topic.user.id != request.user.id %}
-    <div class="btn-add">
-      <a href="#" class="btn btn-primary pull-right orange" id="btn-list">Este tema esta cerrado</a>
-    </div>
-    </br></br>
+      <div class="btn-add">
+        <a href="#" class="btn btn-primary pull-right orange" id="btn-list">Este tema esta cerrado</a>
+      </div>
+      </br></br>
   {% endif %}
   {% else %}
-  {% if topic.user.id != request.user.id %}
-  {% for fm in fmail%}
-              <div class="btn-add">
-                <a href="{% url 'leave_forum' fm.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Dejar de recibir correos de este Tema">Suscrito</a>
-              </div>
-              </br></br>
-              {% empty %}
-                  <div class="btn-add">
-                    <a href="{% url 'follow_forum' topic.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Recibirás correos de este Tema">Suscribete</a>
-                  </div>
-                  </br></br>
-    {% endfor %}
-
-  {% endif %}
+    {% if topic.user.id != request.user.id %}
+      {% for fm in fmail%}
+                <div class="btn-add">
+                  <a href="{% url 'leave_forum' fm.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Dejar de recibir correos de este Tema">Suscrito</a>
+                </div>
+                </br></br>
+                {% empty %}
+                    <div class="btn-add">
+                      <a href="{% url 'follow_forum' topic.id %}" class="btn btn-primary pull-right orange" id="btn-list" title="Recibirás correos de este Tema">Suscribete</a>
+                    </div>
+                    </br></br>
+      {% endfor %}
+    {% endif %}
 {% endif %}
 <div class="span12">
   <div class="widget ">
@@ -159,9 +159,9 @@
 {% endif %}
   </div>
 </div>
-{% endblock %}
 
+{% endblock %}
 {% block extra_script %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-{% include "forum.js" %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  {% include "forum.js" %}
 {% endblock %}
