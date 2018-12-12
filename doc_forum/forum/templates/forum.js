@@ -6,10 +6,29 @@ $(document).ready(function(){
   var id = "{{agree.id|safe}}";
   var p = $("#forum_"+id);
 
+  // var expresion = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/ig;
+  // // var cadena = "https://www.youtube.com/watch?v=gAd2gU0VdJU&list=RDgAd2gU0VdJU";
+  // var repl_http = desc.replace(expresion, '<a href="$1" target="_blank">$2</a>');
+  // p.html(repl_http);
+  //utilizamos expresiones regulares para poder ver si hay url
   var expresion = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/ig;
-  // var cadena = "https://www.youtube.com/watch?v=gAd2gU0VdJU&list=RDgAd2gU0VdJU";
-  var repl_http = desc.replace(expresion, '<a href="$1" target="_blank">$2</a>');
-  p.html(repl_http);
+  var www = desc.indexOf("www")
+  var http = desc.indexOf("http")
+  //cuando el indexOf no encuentra los caracteres esperados este envia -1
+  if(http<0){
+    if(www<0){
+      var repl_http = desc.replace(expresion, '<a href="$1" target="_blank">$1</a>');
+      p.html(repl_http);
+    }else {
+      //si solo viene la url con un wwww, vamos agregar el http:// "para que se pueda visualizar la página"
+      var repl_http = desc.replace(expresion, '<a href="http://$1" target="_blank">$1</a>');
+      p.html(repl_http);
+    }
+  }else{
+    var repl_http = desc.replace(expresion, '<a href="$1" target="_blank">$1</a>');
+    p.html(repl_http);
+  }
+
 
   var repl = repl_http.replace(/(^|\W)(#[a-z\d][\w-]*)/ig, '$1<a href="https://twitter.com/hashtag/$2" target="_blank">$2</a>');
   repl=repl.replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/").replace("/#","/");

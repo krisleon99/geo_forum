@@ -206,3 +206,15 @@ DEFAULT_FROM_EMAIL = 'admin.idegeo@centrogeo.edu.mx'
 
 # Email for users to contact admins.
 THEME_ACCOUNT_CONTACT_EMAIL = 'admin.idegeo@centrogeo.edu.mx'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'foro_geo@centrogeo.edu.mx'
+# EMAIL_HOST_PASSWORD = 'foro2018'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+#
+# DEFAULT_FROM_EMAIL = 'foro_geo@centrogeo.edu.mx'
+#
+# # Email for users to contact admins.
+# THEME_ACCOUNT_CONTACT_EMAIL = 'foro_geo@centrogeo.edu.mx'
