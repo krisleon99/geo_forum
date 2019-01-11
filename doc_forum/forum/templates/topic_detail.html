@@ -63,6 +63,30 @@
                   </a>
                 </ul>
             </div>
+            {% else %}
+                {% if request.user.is_staff %}
+                <div class="dropdown">
+                    <i class="fa fa-cogs" id="right-settings" title="Opciones" aria-hidden="true" data-toggle="dropdown"></i>
+                    <ul class="dropdown-menu">
+                      {% if topic.is_closed %}
+                      <a href="#">
+                        <i class="fa fa-unlock" title="Abrir tema" id="open_topic" id-topic="{{topic.id}}" aria-hidden="true">Abrir tema</i>
+                      </a>
+                      {% else %}
+                      <a href="#">
+                        <i class="fa fa-lock" title="Cerrar tema" id="close_topic" id-topic="{{topic.id}}" aria-hidden="true">Cerrar tema</i>
+                      </a>
+                      {% endif %}
+                      <a href="{% url 'update_topic' topic.id %}">
+                        <i class="fa fa-pencil" title="Editar tema" aria-hidden="true">Editar tema</i>
+                      </a>
+                      <a href="{% url 'delete_topic' topic.id %}">
+                        <i class="fa fa-trash-o" title="Eliminar tema" aria-hidden="true">Eliminar tema</i>
+                      </a>
+                    </ul>
+                </div>
+                {% endif %}
+
         {% endif %}
         <!-- <div class="return-forum"> -->
           <a href="{% url "forum.views.forum_web" %}" title="Regresar" class="return-forum"><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
@@ -110,6 +134,19 @@
                                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 </a>
                               </span>
+                              {% else %}
+                                {% if request.user.is_staff %}
+                                    <span class="icons-forum">
+                                      <a href="{% url 'delete_forum' wp.id topic.id %}">
+                                        <i class="fa fa-trash" title="Eliminar comentario" aria-hidden="true"></i>
+                                      </a>
+                                    </span>
+                                    <span class="icons-forum">
+                                      <a href="{% url 'update_forum' wp.id topic.id %}">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                      </a>
+                                    </span>
+                                {% endif %}
                               {% endif %}
                               <span class="icons-forum">
                                 <span class="like-chat" id="like_{{wp.id}}" data_count_like="1">

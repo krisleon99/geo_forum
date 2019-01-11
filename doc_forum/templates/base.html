@@ -130,6 +130,10 @@
         <li class="{% if 'forum_web' in request.get_full_path %}active{%endif%}"><a href="{% url 'forum.views.forum_web' %}"><i class="fa fa-comments-o"></i><span>Foro</span> </a> </li>
           {% if "add_user" in perms %}
               <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li>
+              {% else %}
+                {% if user.is_staff %}
+                    <li class="{% if 'usuario' in request.get_full_path %}active{%endif%}"><a href="{% url 'manager.views.user_list' %}"><i class="icon-group"></i><span>Usuarios</span> </a> </li>
+                {% endif %}
            {% endif %}
       </ul>
     </div>
